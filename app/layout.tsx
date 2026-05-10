@@ -3,8 +3,10 @@ import type { Metadata, Viewport } from "next";
 import { Footer } from "@/components/layout/Footer";
 import { MobileActionBar } from "@/components/layout/MobileActionBar";
 import { Navbar } from "@/components/layout/Navbar";
+import { Analytics } from "@vercel/analytics/react";
 import { JsonLd } from "@/components/seo/JsonLd";
 import { siteConfig } from "@/config/site";
+import { Toaster } from "sonner";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -60,6 +62,8 @@ export default function RootLayout({
         <main>{children}</main>
         <Footer />
         <MobileActionBar />
+        <Toaster position="bottom-right" richColors />
+        <Analytics />
       </body>
     </html>
   );

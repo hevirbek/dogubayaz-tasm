@@ -1,4 +1,4 @@
-import { BriefcaseMedical, Clock3, DoorOpen, Info, Stethoscope } from "lucide-react";
+import { BriefcaseMedical, Clock3, DoorOpen, Info, Stethoscope, CalendarX2 } from "lucide-react";
 
 import {
   Card,
@@ -9,7 +9,7 @@ import {
 } from "@/components/ui/card";
 import type { Doctor } from "@/lib/data/doctors";
 
-export function DoctorCard({ doctor }: { doctor: Doctor }) {
+export function DoctorCard({ doctor, leave }: { doctor: Doctor; leave?: any }) {
   return (
     <Card className="h-full overflow-hidden">
       <CardHeader>
@@ -64,6 +64,16 @@ export function DoctorCard({ doctor }: { doctor: Doctor }) {
           <p className="flex gap-3 rounded-md border border-sky-100 bg-sky-50 p-3 leading-6 text-sky-950">
             <Info aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-sky-700" />
             {doctor.note}
+          </p>
+        ) : null}
+
+        {leave ? (
+          <p className="flex gap-3 rounded-md border border-red-200 bg-red-50 p-3 leading-6 text-red-950 text-xs">
+            <CalendarX2 aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-red-600" />
+            <span>
+              <strong>İzinli:</strong> {new Date(leave.start_date).toLocaleDateString("tr-TR")} - {new Date(leave.end_date).toLocaleDateString("tr-TR")}
+              {leave.reason ? <><br/>Neden: {leave.reason}</> : null}
+            </span>
           </p>
         ) : null}
       </CardContent>

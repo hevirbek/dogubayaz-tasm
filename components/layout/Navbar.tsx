@@ -2,6 +2,7 @@ import Link from "next/link";
 import { HeartPulse, Phone } from "lucide-react";
 
 import { MobileMenu } from "@/components/layout/MobileMenu";
+import { SiteSearch } from "@/components/layout/SiteSearch";
 import { Button } from "@/components/ui/button";
 import { navItems, siteConfig } from "@/config/site";
 
@@ -40,6 +41,7 @@ export function Navbar() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <SiteSearch />
           <Button asChild size="sm" className="hidden sm:inline-flex">
             <a href={`tel:${siteConfig.phone}`} aria-label="Telefon et">
               <Phone aria-hidden className="h-4 w-4" />

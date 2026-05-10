@@ -28,3 +28,24 @@ export const announcementAdminSchema = z.object({
   published_at: z.string().min(10).max(40),
   is_active: z.coerce.boolean()
 });
+
+export const asmWorkingHoursAdminSchema = z.object({
+  id: z.coerce.number().optional().default(1),
+  weekdays_start: z.string().trim().min(5).max(5),
+  weekdays_end: z.string().trim().min(5).max(5),
+  weekend_closed: z.coerce.boolean()
+});
+
+export const closedDatesAdminSchema = z.object({
+  id: z.string().optional(),
+  date: z.string().min(10).max(10),
+  reason: z.string().trim().min(2).max(200)
+});
+
+export const doctorLeavesAdminSchema = z.object({
+  id: z.string().optional(),
+  doctor_id: z.string().min(1),
+  start_date: z.string().min(10).max(10),
+  end_date: z.string().min(10).max(10),
+  reason: z.preprocess(emptyToNull, z.string().max(200).nullable())
+});

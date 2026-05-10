@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { DoctorsPreview } from "@/components/sections/DoctorsPreview";
 import { siteConfig } from "@/config/site";
-import { getDoctors } from "@/lib/data/queries";
+import { getDoctors, getActiveDoctorLeaves } from "@/lib/data/queries";
 
 export const revalidate = 300;
 
@@ -13,7 +13,10 @@ export const metadata: Metadata = {
 };
 
 export default async function DoctorsPage() {
-  const doctors = await getDoctors();
+  const [doctors, leaves] = await Promise.all([
+    getDoctors(),
+    getActiveDoctorLeaves()
+  ]);
 
   return (
     <>
@@ -21,7 +24,7 @@ export default async function DoctorsPage() {
         title="Hekimler"
         description="Merkezimizde görev yapan aile hekimleri ve aile sağlığı çalışanları."
       />
-      <DoctorsPreview doctors={doctors} showAll />
+      <DoctorsPreview doctors={doctors} leaves={leaves} showAll />
     </>
   );
 }

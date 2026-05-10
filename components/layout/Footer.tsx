@@ -1,9 +1,17 @@
 import Link from "next/link";
-import { Clock, Mail, MapPin, Phone } from "lucide-react";
+import { Clock, Mail, MapPin, Phone, AlertTriangle } from "lucide-react";
 
 import { navItems, siteConfig } from "@/config/site";
+import { getAdminAsmWorkingHours, getAdminClosedDates } from "@/lib/admin/data";
 
-export function Footer() {
+export async function Footer() {
+  const [workingHours, closedDates] = await Promise.all([
+    getAdminAsmWorkingHours(),
+    getAdminClosedDates()
+  ]);
+
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const todayClosed = closedDates?.find((d: any) => d.date === todayStr);
   return (
     <footer className="border-t border-border bg-slate-950 text-slate-100">
       <div className="container grid gap-8 py-12 md:grid-cols-[1.5fr_1fr_1fr]">
@@ -64,8 +72,25 @@ export function Footer() {
             </li>
             <li className="flex gap-2">
               <Clock aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />
-              Hafta içi 08:00 - 17:00
+              {workingHours ? (
+                <span>
+                  Hafta içi {workingHours.weekdays_start} - {workingHours.weekdays_end}
+                  {workingHours.weekend_closed && <br />}
+                  {workingHours.weekend_closed && "Hafta sonu kapalı"}
+                </span>
+              ) : (
+                "Hafta içi 08:00 - 17:00"
+              )}
             </li>
+            {todayClosed && (
+              <li className="flex gap-2 text-red-300 bg-red-950/40 p-2 rounded border border-red-500/30">
+                <AlertTriangle aria-hidden className="mt-0.5 h-4 w-4 shrink-0" />
+                <span>
+                  <strong>Dikkat:</strong> Bugün kurumumuz kapalıdır.
+                  <br />Neden: {todayClosed.reason}
+                </span>
+              </li>
+            )}
           </ul>
         </div>
       </div>

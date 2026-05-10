@@ -43,3 +43,32 @@ grant select, insert, update, delete
      public.announcements,
      public.contact_messages
   to service_role;
+
+create table if not exists public.asm_working_hours (
+  id integer primary key default 1,
+  weekdays_start text not null default '08:00',
+  weekdays_end text not null default '17:00',
+  weekend_closed boolean not null default true
+);
+
+create table if not exists public.closed_dates (
+  id uuid primary key default gen_random_uuid(),
+  date date not null,
+  reason text not null,
+  created_at timestamptz not null default now()
+);
+
+create table if not exists public.doctor_leaves (
+  id uuid primary key default gen_random_uuid(),
+  doctor_id uuid references public.doctors(id) on delete cascade not null,
+  start_date date not null,
+  end_date date not null,
+  reason text,
+  created_at timestamptz not null default now()
+);
+
+grant select, insert, update, delete
+  on public.asm_working_hours,
+     public.closed_dates,
+     public.doctor_leaves
+  to service_role;

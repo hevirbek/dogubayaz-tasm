@@ -12,7 +12,10 @@ import {
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 import {
   announcementAdminSchema,
-  doctorAdminSchema
+  asmWorkingHoursAdminSchema,
+  closedDatesAdminSchema,
+  doctorAdminSchema,
+  doctorLeavesAdminSchema
 } from "@/lib/validators/admin";
 
 function getString(formData: FormData, key: string) {
@@ -21,10 +24,7 @@ function getString(formData: FormData, key: string) {
 }
 
 function revalidateContent() {
-  revalidatePath("/");
-  revalidatePath("/hekimler");
-  revalidatePath("/duyurular");
-  revalidatePath("/admin");
+  revalidatePath("/", "layout");
 }
 
 export async function loginAction(formData: FormData) {
@@ -46,12 +46,8 @@ export async function logoutAction() {
 
 export async function saveDoctorAction(formData: FormData) {
   await requireAdmin();
-
   const supabase = getSupabaseAdmin();
-
-  if (!supabase) {
-    redirect("/admin?error=supabase");
-  }
+  if (!supabase) return { error: "Supabase bağlantısı eksik." };
 
   const parsed = doctorAdminSchema.safeParse({
     id: getString(formData, "id") || undefined,
@@ -65,9 +61,7 @@ export async function saveDoctorAction(formData: FormData) {
     is_active: formData.get("is_active") === "on"
   });
 
-  if (!parsed.success) {
-    redirect("/admin?error=validation");
-  }
+  if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
 
   const { id, ...payload } = parsed.data;
   const response = id
@@ -75,53 +69,31 @@ export async function saveDoctorAction(formData: FormData) {
     : await supabase.from("doctors").insert(payload);
 
   if (response.error) {
-    console.error("Doctor save failed", {
-      code: response.error.code,
-      message: response.error.message,
-      details: response.error.details,
-      hint: response.error.hint
-    });
-    redirect("/admin?error=save");
+    console.error("Doctor save failed", response.error);
+    return { error: "Kayıt işlemi başarısız oldu." };
   }
 
   revalidateContent();
-  redirect("/admin?success=doctor");
+  return { success: true, message: id ? "Hekim başarıyla güncellendi." : "Hekim başarıyla eklendi." };
 }
 
 export async function deleteDoctorAction(formData: FormData) {
   await requireAdmin();
-
   const supabase = getSupabaseAdmin();
   const id = getString(formData, "id");
-
-  if (!supabase || !id) {
-    redirect("/admin?error=save");
-  }
+  if (!supabase || !id) return { error: "Kayıt bulunamadı." };
 
   const { error } = await supabase.from("doctors").delete().eq("id", id);
-
-  if (error) {
-    console.error("Doctor delete failed", {
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint
-    });
-    redirect("/admin?error=save");
-  }
+  if (error) return { error: "Silme işlemi başarısız." };
 
   revalidateContent();
-  redirect("/admin?success=doctor-deleted");
+  return { success: true, message: "Hekim silindi." };
 }
 
 export async function saveAnnouncementAction(formData: FormData) {
   await requireAdmin();
-
   const supabase = getSupabaseAdmin();
-
-  if (!supabase) {
-    redirect("/admin?error=supabase");
-  }
+  if (!supabase) return { error: "Supabase bağlantısı eksik." };
 
   const parsed = announcementAdminSchema.safeParse({
     id: getString(formData, "id") || undefined,
@@ -131,51 +103,138 @@ export async function saveAnnouncementAction(formData: FormData) {
     is_active: formData.get("is_active") === "on"
   });
 
-  if (!parsed.success) {
-    redirect("/admin?error=validation");
-  }
+  if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
 
   const { id, ...payload } = parsed.data;
   const response = id
     ? await supabase.from("announcements").update(payload).eq("id", id)
     : await supabase.from("announcements").insert(payload);
 
-  if (response.error) {
-    console.error("Announcement save failed", {
-      code: response.error.code,
-      message: response.error.message,
-      details: response.error.details,
-      hint: response.error.hint
-    });
-    redirect("/admin?error=save");
-  }
+  if (response.error) return { error: "Duyuru kaydedilemedi." };
 
   revalidateContent();
-  redirect("/admin?success=announcement");
+  return { success: true, message: id ? "Duyuru güncellendi." : "Duyuru eklendi." };
 }
 
 export async function deleteAnnouncementAction(formData: FormData) {
   await requireAdmin();
-
   const supabase = getSupabaseAdmin();
   const id = getString(formData, "id");
-
-  if (!supabase || !id) {
-    redirect("/admin?error=save");
-  }
+  if (!supabase || !id) return { error: "Kayıt bulunamadı." };
 
   const { error } = await supabase.from("announcements").delete().eq("id", id);
-
-  if (error) {
-    console.error("Announcement delete failed", {
-      code: error.code,
-      message: error.message,
-      details: error.details,
-      hint: error.hint
-    });
-    redirect("/admin?error=save");
-  }
+  if (error) return { error: "Silme işlemi başarısız." };
 
   revalidateContent();
-  redirect("/admin?success=announcement-deleted");
+  return { success: true, message: "Duyuru silindi." };
+}
+
+export async function saveAsmWorkingHoursAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return { error: "Supabase bağlantısı eksik." };
+
+  const parsed = asmWorkingHoursAdminSchema.safeParse({
+    id: 1,
+    weekdays_start: getString(formData, "weekdays_start"),
+    weekdays_end: getString(formData, "weekdays_end"),
+    weekend_closed: formData.get("weekend_closed") === "on"
+  });
+
+  if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
+
+  const { error } = await supabase.from("asm_working_hours").upsert(parsed.data);
+  if (error) return { error: "Saatler kaydedilemedi." };
+
+  revalidateContent();
+  return { success: true, message: "Çalışma saatleri güncellendi." };
+}
+
+export async function saveClosedDateAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return { error: "Supabase bağlantısı eksik." };
+
+  const parsed = closedDatesAdminSchema.safeParse({
+    id: getString(formData, "id") || undefined,
+    date: getString(formData, "date"),
+    reason: getString(formData, "reason")
+  });
+
+  if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
+
+  const { id, ...payload } = parsed.data;
+  const { error } = id 
+    ? await supabase.from("closed_dates").update(payload).eq("id", id)
+    : await supabase.from("closed_dates").insert(payload);
+
+  if (error) return { error: "Kapalı gün kaydedilemedi." };
+
+  revalidateContent();
+  return { success: true, message: "Kapalı gün kaydedildi." };
+}
+
+export async function deleteClosedDateAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  const id = getString(formData, "id");
+  if (!supabase || !id) return { error: "Kayıt bulunamadı." };
+
+  const { error } = await supabase.from("closed_dates").delete().eq("id", id);
+  if (error) return { error: "Silme işlemi başarısız." };
+
+  revalidateContent();
+  return { success: true, message: "Kapalı gün silindi." };
+}
+
+export async function saveDoctorLeaveAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return { error: "Supabase bağlantısı eksik." };
+
+  const parsed = doctorLeavesAdminSchema.safeParse({
+    id: getString(formData, "id") || undefined,
+    doctor_id: getString(formData, "doctor_id"),
+    start_date: getString(formData, "start_date"),
+    end_date: getString(formData, "end_date"),
+    reason: getString(formData, "reason")
+  });
+
+  if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
+
+  const { id, ...payload } = parsed.data;
+  const { error } = id
+    ? await supabase.from("doctor_leaves").update(payload).eq("id", id)
+    : await supabase.from("doctor_leaves").insert(payload);
+
+  if (error) return { error: "İzin kaydedilemedi." };
+
+  revalidateContent();
+  return { success: true, message: "Hekim izni kaydedildi." };
+}
+
+export async function deleteDoctorLeaveAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  const id = getString(formData, "id");
+  if (!supabase || !id) return { error: "Kayıt bulunamadı." };
+
+  const { error } = await supabase.from("doctor_leaves").delete().eq("id", id);
+  if (error) return { error: "Silme işlemi başarısız." };
+
+  revalidateContent();
+  return { success: true, message: "Hekim izni silindi." };
+}
+
+export async function deleteContactMessageAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  const id = getString(formData, "id");
+  if (!supabase || !id) return { error: "Kayıt bulunamadı." };
+
+  const { error } = await supabase.from("contact_messages").delete().eq("id", id);
+  if (error) return { error: "Silme işlemi başarısız." };
+
+  revalidateContent();
+  return { success: true, message: "Mesaj silindi." };
 }

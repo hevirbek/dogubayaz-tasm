@@ -52,3 +52,16 @@ export async function getAnnouncements(): Promise<Announcement[]> {
 
   return data as Announcement[];
 }
+
+export async function getActiveDoctorLeaves(): Promise<any[]> {
+  const supabase = getSupabaseAdmin();
+  if (!supabase) return [];
+  
+  const todayStr = new Date().toISOString().slice(0, 10);
+  const { data } = await supabase
+    .from("doctor_leaves")
+    .select("*")
+    .gte("end_date", todayStr);
+    
+  return data || [];
+}

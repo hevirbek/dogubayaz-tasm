@@ -7,9 +7,11 @@ import type { Doctor } from "@/lib/data/doctors";
 
 export function DoctorsPreview({
   doctors,
+  leaves = [],
   showAll = false
 }: {
   doctors: Doctor[];
+  leaves?: any[];
   showAll?: boolean;
 }) {
   const visibleDoctors = showAll ? doctors : doctors.slice(0, 3);
@@ -31,9 +33,10 @@ export function DoctorsPreview({
         />
         {visibleDoctors.length > 0 ? (
           <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleDoctors.map((doctor) => (
-              <DoctorCard key={doctor.id} doctor={doctor} />
-            ))}
+            {visibleDoctors.map((doctor) => {
+              const activeLeave = leaves?.find((l) => l.doctor_id === doctor.id);
+              return <DoctorCard key={doctor.id} doctor={doctor} leave={activeLeave} />;
+            })}
           </div>
         ) : (
           <p className="rounded-lg border border-dashed border-border p-6 text-muted-foreground">

@@ -15,14 +15,17 @@ import { PrimaryCareExplainer } from "@/components/sections/PrimaryCareExplainer
 import { ServicesPreview } from "@/components/sections/ServicesPreview";
 import { TrustHighlights } from "@/components/sections/TrustHighlights";
 import { siteConfig } from "@/config/site";
-import { getAnnouncements, getDoctors } from "@/lib/data/queries";
+import { getAnnouncements, getDoctors, getActiveDoctorLeaves } from "@/lib/data/queries";
+import { getAdminAsmWorkingHours } from "@/lib/admin/data";
 
 export const revalidate = 300;
 
 export default async function HomePage() {
-  const [doctors, announcements] = await Promise.all([
+  const [doctors, announcements, workingHours, leaves] = await Promise.all([
     getDoctors(),
-    getAnnouncements()
+    getAnnouncements(),
+    getAdminAsmWorkingHours(),
+    getActiveDoctorLeaves()
   ]);
 
   return (
@@ -34,7 +37,15 @@ export default async function HomePage() {
         <div className="container grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           <OpeningStatusCard />
           <InfoCard icon={Clock} title="Çalışma Saatleri">
-            Hafta içi 08:00 - 17:00
+            {workingHours ? (
+              <>
+                Hafta içi {workingHours.weekdays_start} - {workingHours.weekdays_end}
+                <br />
+                {workingHours.weekend_closed && "Hafta sonu kapalı"}
+              </>
+            ) : (
+              "Hafta içi 08:00 - 17:00"
+            )}
           </InfoCard>
           <InfoCard icon={Phone} title="Telefon">
             <a href={`tel:${siteConfig.phone}`} className="font-medium text-foreground">
@@ -49,7 +60,7 @@ export default async function HomePage() {
       <PrimaryCareExplainer />
       <ServicesPreview />
       <BeforeVisit />
-      <DoctorsPreview doctors={doctors} />
+      <DoctorsPreview doctors={doctors} leaves={leaves} />
       <AnnouncementsPreview announcements={announcements} />
       <HomeCTA />
       <CommonLinks />

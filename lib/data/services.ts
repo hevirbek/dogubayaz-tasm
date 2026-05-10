@@ -23,142 +23,136 @@ export type Service = {
 
 export const services: Service[] = [
   {
-    title: "Aşı Takibi",
+    title: "Aşı Takibi ve Bağışıklama",
     slug: "asi-takibi",
-    description:
-      "Ulusal aşı takvimi kapsamında bebek, çocuk ve yetişkin aşı süreçlerinin izlenmesine destek olunur.",
+    description: "Bebek, çocuk ve yetişkinler için Sağlık Bakanlığı ulusal aşı takvimi kapsamında ücretsiz, güvenli ve düzenli aşı takip hizmeti sunulmaktadır.",
     icon: ShieldCheck,
-    detailIntro:
-      "Aşı takibi, koruyucu sağlık hizmetlerinin önemli bir parçasıdır. Merkezimizde aşı süreçleri ulusal takvim ve ilgili mevzuat çerçevesinde takip edilir.",
+    detailIntro: "Aşı takibi, toplum sağlığını korumak ve önlenebilir hastalıklara karşı direnç geliştirmek için sunduğumuz en önemli koruyucu sağlık hizmetlerinden biridir. Aile sağlığı merkezimizde tüm aşı uygulamaları soğuk zincir kurallarına titizlikle uyularak, güvenli ve hijyenik bir ortamda gerçekleştirilir.",
     detailSections: [
       {
-        title: "Bu hizmet hakkında genel bilgi",
-        content:
-          "Bebek, çocuk ve gerekli durumlarda yetişkin aşıları için kayıt, izlem ve bilgilendirme süreçleri yürütülür. Aşı uygunluğu ve zamanlaması kişisel duruma göre sağlık personeli tarafından değerlendirilir."
+        title: "Bebek ve Çocuk Aşıları",
+        content: "Bebeğinizin doğumundan itibaren ulusal aşı takvimine uygun olarak; hepatit, verem (BCG), karma aşılar, pnömokok, kızamık, kızamıkçık, kabakulak ve suçiçeği gibi aşıları düzenli olarak takip ediyor ve uyguluyoruz. Aşı takviminiz aile hekimliğimiz tarafından size detaylı olarak bildirilir ve hatırlatmalar yapılır."
       },
       {
-        title: "Merkeze gelmeden önce",
-        content:
-          "Kimlik belgenizi ve varsa önceki aşı/izlem bilgilerinizi yanınızda bulundurmanız işlemleri kolaylaştırır. Uygun zaman bilgisi için gelmeden önce telefonla iletişime geçebilirsiniz."
+        title: "Yetişkin ve Risk Grubu Aşıları",
+        content: "Gebelikte tetanoz aşısı, kronik hastalığı olanlar veya ileri yaş grubundakiler için grip ve zatürre aşıları ile riskli durumlardaki (kuduz, hepatit vb.) aşı uygulamaları merkezimizde planlanmakta ve yönlendirilmektedir."
+      },
+      {
+        title: "Merkeze Gelmeden Önce",
+        content: "Aşı uygulaması için geldiğinizde mutlaka çocuğunuzun veya sizin aşı kartınızı, kimlik belgenizi yanınızda bulundurmayı unutmayın. Hastalık dönemlerinde (yüksek ateş vb.) aşı uygulanıp uygulanamayacağı doktorumuz tarafından değerlendirilecektir."
       }
     ],
-    contactNote:
-      "Aşı takibi hakkında genel bilgi almak için merkezimizi arayabilir veya iletişim formunu kullanabilirsiniz."
+    contactNote: "Aşı takviminiz, eksik aşılarınız veya aşı uygulamaları hakkında detaylı bilgi almak için bizimle iletişime geçebilirsiniz."
   },
   {
-    title: "Gebe İzlem",
+    title: "Gebe ve Lohusa İzlemi",
     slug: "gebe-izlem",
-    description:
-      "Gebelik döneminde rutin izlem, bilgilendirme ve gerekli yönlendirme süreçleri yürütülür.",
+    description: "Anne ve bebek sağlığını korumak için gebelik başlangıcından lohusalık döneminin sonuna kadar düzenli tıbbi takip ve danışmanlık hizmeti.",
     icon: HeartPulse,
-    detailIntro:
-      "Gebe izlem hizmetleri, gebelik sürecinde koruyucu sağlık yaklaşımıyla düzenli takip ve bilgilendirme sağlamayı amaçlar.",
+    detailIntro: "Sağlıklı bir nesil, sağlıklı bir anne ile başlar. Gebelik ve lohusalık dönemi boyunca hem annenin hem de bebeğin sağlığını yakından takip etmek, olası riskleri önceden belirlemek ve sağlıklı bir doğum süreci geçirmenizi sağlamak temel amacımızdır.",
     detailSections: [
       {
-        title: "Bu hizmet hakkında genel bilgi",
-        content:
-          "Gebelik döneminde rutin izlem, temel ölçümler, bilgilendirme ve gerekli durumlarda ilgili sağlık birimlerine yönlendirme süreçleri yürütülür."
+        title: "Gebelik İzlemi ve Takipler",
+        content: "Gebeliğin tespitinden doğuma kadar geçen süreçte tansiyon, kilo ölçümleri, bebek kalp sesi dinlenmesi (ÇKS), gerekli kan ve idrar tahlillerinin yapılması, tetanoz aşısı planlaması ve beslenme danışmanlığı gibi konularda düzenli olarak yanınızdayız. Sağlık Bakanlığı protokollerine uygun olarak belirlenen haftalarda (en az 4 kez) izlemleriniz titizlikle yapılır."
       },
       {
-        title: "Merkeze gelmeden önce",
-        content:
-          "Kimlik belgenizi ve varsa gebelik takibinizle ilgili önceki kayıtları yanınızda getirmeniz yararlı olur. İzlem zamanı için aile hekiminiz veya aile sağlığı çalışanınızla iletişime geçebilirsiniz."
+        title: "Lohusa ve Bebek Bakımı Danışmanlığı",
+        content: "Doğum sonrasında (ilk 6 hafta içinde) anne sağlığının değerlendirilmesi, emzirme danışmanlığı, bebek bakımı, aile planlaması yöntemleri gibi konularda size tıbbi ve psikolojik destek sağlıyoruz."
+      },
+      {
+        title: "Önemli Hatırlatma",
+        content: "Gebelik testiniz pozitif çıktığı andan itibaren en kısa sürede aile hekimliğimize başvurarak kaydınızı yaptırmanız büyük önem taşımaktadır. Böylece izlem takvimiz hemen planlanabilir."
       }
     ],
-    contactNote:
-      "Gebe izlem süreciyle ilgili genel sorularınız için telefonla merkezimize ulaşmanız önerilir."
+    contactNote: "Gebelik kaydınızı yaptırmak veya izlem tarihlerinizle ilgili bilgi almak için merkezimizi arayabilir veya bizzat başvurabilirsiniz."
   },
   {
-    title: "Bebek ve Çocuk İzlem",
+    title: "Bebek ve Çocuk İzlemi",
     slug: "bebek-cocuk-izlem",
-    description:
-      "Büyüme, gelişme ve koruyucu sağlık hizmetleri kapsamında düzenli takip sağlanır.",
+    description: "Doğumdan itibaren çocukluk dönemi boyunca büyüme, fiziksel ve zihinsel gelişim takiplerinin uzman sağlık personellerimizce yapılması.",
     icon: Baby,
-    detailIntro:
-      "Bebek ve çocuk izlemleri, büyüme-gelişme süreçlerinin düzenli takip edilmesine ve koruyucu sağlık hizmetlerinin planlanmasına destek olur.",
+    detailIntro: "Çocuklarımızın sağlıklı büyümesi ve gelişmesi için düzenli sağlık kontrolleri vazgeçilmezdir. Bebek ve çocuk izlemleri ile olası gelişim geriliklerini veya sağlık sorunlarını erken dönemde tespit ederek gerekli müdahalelerin zamanında yapılmasını sağlıyoruz.",
     detailSections: [
       {
-        title: "Bu hizmet hakkında genel bilgi",
-        content:
-          "Bebek ve çocuklarda rutin izlem, gelişim takibi, aşı takvimi kontrolü ve aileye yönelik genel bilgilendirme süreçleri yürütülür."
+        title: "Kapsamlı Gelişim Takibi",
+        content: "Bebeğinizin doğumundan itibaren boy, kilo ve baş çevresi ölçümleri düzenli olarak yapılır ve persentil eğrileri üzerinde değerlendirilir. Motor becerileri, görme ve işitme durumları, nöromotor gelişimi ayına ve yaşına uygunluğu açısından kontrol edilir."
       },
       {
-        title: "Merkeze gelmeden önce",
-        content:
-          "Çocuğun kimlik bilgileri, varsa aşı kartı ve önceki izlem bilgileriyle başvurmanız işlemleri hızlandırır. Uygun zaman için merkezimizle iletişime geçebilirsiniz."
+        title: "Beslenme ve Anne Sütü Danışmanlığı",
+        content: "İlk 6 ay sadece anne sütü ile beslenme, sonrasında uygun ek gıdalara geçiş süreçleri hakkında annelere detaylı bilgilendirme ve destek sağlıyoruz. D vitamini ve demir damlası takviyelerinin planlamasını yapıyoruz."
+      },
+      {
+        title: "Randevu ve Ziyaret",
+        content: "İzlemler, belirli aylara denk gelecek şekilde planlanır. İzleme gelirken bebeğinizin tok ve huzurlu olması ölçümlerin daha rahat yapılmasını sağlar. Lütfen bebek/çocuk sağlık izlem kartınızı yanınızda bulundurunuz."
       }
     ],
-    contactNote:
-      "Bebek ve çocuk izlem zamanları için telefonla bilgi alabilirsiniz."
+    contactNote: "Çocuğunuzun gelişimiyle ilgili aklınıza takılan sorular veya bir sonraki izlem tarihi için bize her zaman ulaşabilirsiniz."
   },
   {
     title: "Kronik Hastalık Takibi",
     slug: "kronik-hastalik-takibi",
-    description:
-      "Hipertansiyon, diyabet ve benzeri kronik durumlarda düzenli izlem ve danışmanlık sunulur.",
+    description: "Hipertansiyon, diyabet, astım, KOAH, obezite ve kalp hastalıkları gibi kronik rahatsızlıkların sürekli, düzenli tahlil ve takibi.",
     icon: ClipboardCheck,
-    detailIntro:
-      "Kronik hastalık takibi, düzenli izlem ve temel sağlık danışmanlığıyla mevcut sağlık durumunun takip edilmesine yardımcı olur.",
+    detailIntro: "Kronik hastalıklar, düzenli doktor kontrolü ve yaşam tarzı değişiklikleri ile başarıyla yönetilebilir. Hastalarımızın yaşam kalitesini artırmak, hastalık komplikasyonlarını önlemek ve ilaç tedavilerini düzenlemek amacıyla kapsamlı bir takip programı yürütüyoruz.",
     detailSections: [
       {
-        title: "Bu hizmet hakkında genel bilgi",
-        content:
-          "Hipertansiyon, diyabet ve benzeri kronik durumlarda aile hekimliği kapsamında düzenli takip, kayıt ve gerektiğinde yönlendirme süreçleri yürütülür."
+        title: "Periyodik Kontroller ve Tahliller",
+        content: "Hipertansiyon, diyabet (şeker hastalığı), kalp-damar hastalıkları gibi kronik rahatsızlığı olan hastalarımızın düzenli olarak tansiyon, kan şekeri, kolesterol ve diğer gerekli kan/idrar tahlilleri merkezimizde yapılmaktadır."
       },
       {
-        title: "Merkeze gelmeden önce",
-        content:
-          "Kullandığınız ilaçların listesini, varsa son ölçüm ve tetkik bilgilerinizi yanınızda getirmeniz değerlendirme sürecine katkı sağlar."
+        title: "Tedavi Uyumu ve Yaşam Tarzı Danışmanlığı",
+        content: "Kullandığınız ilaçların dozu, kullanım şekli, olası yan etkileri hakkında sizi bilgilendiriyor, sağlıklı beslenme, fiziksel aktivite, sigara bırakma gibi konularda danışmanlık hizmeti sunarak tedavinize destek oluyoruz."
+      },
+      {
+        title: "Rutin Ziyaretlerin Önemi",
+        content: "Şikayetiniz olmasa dahi kronik hastalıkların doğası gereği sessiz ilerleyebileceğini unutmayın. Bu nedenle hekiminizin belirlediği periyotlarda (örneğin 3 veya 6 ayda bir) mutlaka kontrol randevunuza gelmeniz gerekmektedir."
       }
     ],
-    contactNote:
-      "Kronik hastalık takibiyle ilgili genel bilgi için merkezimizle iletişime geçebilirsiniz."
+    contactNote: "Kronik raporlu ilaçlarınızı yazdırmak veya rutin kontrolleriniz için merkezimizden randevu alabilir veya doktorunuza danışabilirsiniz."
   },
   {
-    title: "Muayene ve Danışmanlık",
+    title: "Muayene ve Genel Sağlık Danışmanlığı",
     slug: "muayene-danismanlik",
-    description:
-      "Aile hekimliği kapsamında temel muayene, değerlendirme ve sağlık danışmanlığı yapılır.",
+    description: "Akut hastalıkların teşhis ve tedavisi, genel sağlık şikayetlerinin değerlendirilmesi ve bireyselleştirilmiş koruyucu sağlık danışmanlığı.",
     icon: Stethoscope,
-    detailIntro:
-      "Muayene ve danışmanlık hizmetleri, aile hekimliği kapsamındaki temel başvuru ve değerlendirme süreçlerini içerir.",
+    detailIntro: "Sağlığınızla ilgili her türlü endişenizde ilk başvuracağınız nokta aile sağlığı merkezimizdir. Deneyimli hekim kadromuz ile her yaş grubundan hastaya kapsamlı, güvenilir ve hasta odaklı birinci basamak sağlık hizmeti sunuyoruz.",
     detailSections: [
       {
-        title: "Bu hizmet hakkında genel bilgi",
-        content:
-          "Genel sağlık şikayetleri, koruyucu sağlık danışmanlığı ve gerekli durumlarda ilgili sağlık kurumlarına yönlendirme aile hekimliği kapsamında değerlendirilir."
+        title: "Poliklinik Hizmetleri",
+        content: "Soğuk algınlığı, enfeksiyonlar, ağrı şikayetleri, mide-bağırsak sorunları, alerjik reaksiyonlar ve küçük yaralanmalar gibi genel poliklinik hizmetleri kapsamında muayene ve tedavi süreciniz özenle planlanır. Gerekli durumlarda laboratuvar tetkikleriniz merkezimizde yapılır."
       },
       {
-        title: "Merkeze gelmeden önce",
-        content:
-          "Kimlik belgenizi ve varsa mevcut ilaç/tetkik bilgilerinizi yanınızda getirmeniz önerilir. Acil durumlarda aile sağlığı merkezi yerine 112 aranmalıdır."
+        title: "İleri Merkezlere Yönlendirme (Sevk)",
+        content: "Aile hekimliğimizde değerlendirilen ve uzmanlık veya ileri tetkik gerektiren durumlarda, durumunuza en uygun hastaneye ve uzman hekime doğru yönlendirmeniz yapılarak sağlık sürecinizin kesintisiz devamı sağlanır."
+      },
+      {
+        title: "Koruyucu Hekimlik",
+        content: "Sadece hastalandığınızda değil, hastalıklardan korunmak, kanser taramaları (meme, kolon, rahim ağzı) hakkında bilgi almak ve genel sağlık değerlendirmeniz için de merkezimize başvurabilirsiniz."
       }
     ],
-    contactNote:
-      "Genel muayene ve danışmanlık süreçleri için çalışma saatleri içinde telefonla bilgi alabilirsiniz."
+    contactNote: "Mesai saatlerimiz içerisinde hekiminizden sıra numarası alarak muayene olabilir, acil olmayan durumlarda bilgi için merkezimizi arayabilirsiniz."
   },
   {
-    title: "Rapor İşlemleri",
+    title: "Sağlık Raporu İşlemleri",
     slug: "rapor-islemleri",
-    description:
-      "Mevzuat kapsamında uygun görülen rapor ve belge işlemleri için başvuru alınır.",
+    description: "Sürücü belgesi, işe giriş, spor lisansı, evlilik raporu ve yivsiz av tüfeği gibi resmi kurumlarca talep edilen sağlık durum bildirim raporları.",
     icon: FileText,
-    detailIntro:
-      "Rapor işlemleri, ilgili mevzuat ve aile hekimliği yetki alanı kapsamında değerlendirilir.",
+    detailIntro: "Çeşitli resmi işlemleriniz için gereken sağlık raporları, ilgili mevzuatlar çerçevesinde gerekli fiziksel muayene ve testler sonucunda aile hekimliğimizce düzenlenmektedir. Rapor süreçlerinde hasta güvenliği ve mevzuata uygunluk esastır.",
     detailSections: [
       {
-        title: "Bu hizmet hakkında genel bilgi",
-        content:
-          "Talep edilen rapor veya belge türüne göre başvurunun aile hekimliği kapsamında değerlendirilip değerlendirilemeyeceği kontrol edilir."
+        title: "Düzenlenen Rapor Türleri",
+        content: "Evlilik öncesi sağlık raporu (gerekli kan tahlilleri sonrasında), sürücü belgesi (ehliyet) ilk kayıt/yenileme sağlık raporu, amatör spor lisansı sağlık raporu, işe giriş sağlık raporu (çok tehlikeli/tehlikeli sınıflar hariç) ve kurumlarca talep edilen durum bildirir tek hekim raporları düzenlenmektedir."
       },
       {
-        title: "Merkeze gelmeden önce",
-        content:
-          "Hangi rapor türü için başvurduğunuzu netleştirmeniz ve gerekli olabilecek belgeleri yanınızda bulundurmanız işlemleri kolaylaştırır."
+        title: "Başvuru Süreci",
+        content: "Ehliyet ve benzeri raporlar için e-Devlet üzerinden (e-Nabız / Kişisel Sağlık Bilgi Formu) başvurunuzu önceden oluşturmanız işlemleri hızlandıracaktır. Evlilik raporları için çiftlerin birlikte, kimlikleri ve vesikalık fotoğraflarıyla (bazı illerde) başvurması gereklidir."
+      },
+      {
+        title: "Dikkat Edilmesi Gerekenler",
+        content: "İşe giriş raporları 6331 sayılı İSG Kanunu gereği riskli sınıflarda OSGB/İşyeri hekimi tarafından verilmelidir. Ayrıca hekiminiz durumunuzu değerlendirdikten sonra, sizi uzman hekim onayı için hastaneye sevk etme hakkına sahiptir."
       }
     ],
-    contactNote:
-      "Rapor işlemleriyle ilgili genel bilgi almak için başvuru öncesinde merkezimizi arayabilirsiniz."
+    contactNote: "Almak istediğiniz rapor türüne göre hangi belgelere veya tahlillere ihtiyacınız olduğunu öğrenmek için başvuru öncesi bizimle iletişime geçmenizi rica ederiz."
   }
 ];
 
