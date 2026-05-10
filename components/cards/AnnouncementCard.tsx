@@ -28,15 +28,23 @@ export function AnnouncementCard({
           </p>
           <CardTitle className="leading-7">
             <Link
-              href="/duyurular"
-              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              href={`/duyurular/${announcement.slug || announcement.id}`}
+              className="focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring hover:text-primary transition-colors"
             >
               {announcement.title}
             </Link>
           </CardTitle>
         </CardHeader>
         <CardContent>
-          <CardDescription>{announcement.content}</CardDescription>
+          <CardDescription className="line-clamp-3 mb-4">
+            {announcement.content}
+          </CardDescription>
+          <Link
+            href={`/duyurular/${announcement.slug || announcement.id}`}
+            className="text-sm font-medium text-primary hover:underline underline-offset-4 inline-flex items-center"
+          >
+            Devamını Oku →
+          </Link>
         </CardContent>
       </Card>
     </article>

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { HeartPulse, Phone } from "lucide-react";
+import { Phone } from "lucide-react";
 
 import { MobileMenu } from "@/components/layout/MobileMenu";
 import { SiteSearch } from "@/components/layout/SiteSearch";
@@ -15,9 +15,11 @@ export function Navbar() {
           className="flex min-w-0 items-center gap-3 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
           aria-label="Ana sayfaya git"
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary text-primary-foreground">
-            <HeartPulse aria-hidden className="h-5 w-5" />
-          </span>
+          <img
+            src="https://dosyaism.saglik.gov.tr/Resim/174398/0/arma-logo-turkcejpg.png"
+            alt="T.C. Sağlık Bakanlığı Logosu"
+            className="h-10 w-auto shrink-0 object-contain drop-shadow-sm"
+          />
           <span className="min-w-0">
             <span className="block truncate text-sm font-bold text-foreground sm:text-base">
               {siteConfig.asmName}

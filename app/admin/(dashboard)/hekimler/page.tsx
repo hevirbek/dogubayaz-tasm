@@ -72,7 +72,8 @@ function DoctorForm({ doctor }: { doctor?: Doctor }) {
             <Field label="Unvan" name="title" defaultValue={doctor?.title} required />
             <Field label="Çalışma odası" name="room" defaultValue={doctor?.room} />
             <Field label="Poliklinik saatleri" name="working_hours" defaultValue={doctor?.working_hours} />
-            <Field label="Görev türü" name="duty_type" defaultValue={doctor?.duty_type || ""} />
+            <Field label="Görev türü (Örn: Aile Hekimi)" name="duty_type" defaultValue={doctor?.duty_type || ""} />
+            <Field label="Beraber çalıştığı Ebe / Hemşire (İsteğe bağlı)" name="nurse_name" defaultValue={doctor?.nurse_name || ""} />
             <Field label="Sıralama" name="sort_order" type="number" defaultValue={String(doctor?.sort_order ?? 0)} />
           </div>
           <div className="grid gap-2">

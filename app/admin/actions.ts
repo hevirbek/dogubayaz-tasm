@@ -17,6 +17,7 @@ import {
   doctorAdminSchema,
   doctorLeavesAdminSchema
 } from "@/lib/validators/admin";
+import { slugify } from "@/lib/utils";
 
 function getString(formData: FormData, key: string) {
   const value = formData.get(key);
@@ -56,6 +57,7 @@ export async function saveDoctorAction(formData: FormData) {
     room: getString(formData, "room"),
     working_hours: getString(formData, "working_hours"),
     duty_type: getString(formData, "duty_type"),
+    nurse_name: getString(formData, "nurse_name"),
     note: getString(formData, "note"),
     sort_order: getString(formData, "sort_order") || "0",
     is_active: formData.get("is_active") === "on"
@@ -106,9 +108,11 @@ export async function saveAnnouncementAction(formData: FormData) {
   if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
 
   const { id, ...payload } = parsed.data;
+  const dataToSave = { ...payload, slug: slugify(payload.title) };
+
   const response = id
-    ? await supabase.from("announcements").update(payload).eq("id", id)
-    : await supabase.from("announcements").insert(payload);
+    ? await supabase.from("announcements").update(dataToSave).eq("id", id)
+    : await supabase.from("announcements").insert(dataToSave);
 
   if (response.error) return { error: "Duyuru kaydedilemedi." };
 

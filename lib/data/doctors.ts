@@ -5,6 +5,7 @@ export type Doctor = {
   room: string;
   working_hours: string;
   duty_type?: string | null;
+  nurse_name?: string | null;
   note?: string | null;
   sort_order: number;
   is_active: boolean;

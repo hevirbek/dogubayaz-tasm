@@ -22,9 +22,17 @@ export function CommonLinks() {
               className="group rounded-lg border border-border bg-background p-5 shadow-card transition hover:-translate-y-0.5 hover:shadow-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
             >
               <div className="flex items-start justify-between gap-4">
-                <span className="flex h-11 w-11 items-center justify-center rounded-md bg-accent text-accent-foreground">
-                  <link.icon aria-hidden className="h-5 w-5" />
-                </span>
+                {link.logoUrl ? (
+                  <img 
+                    src={link.logoUrl} 
+                    alt={`${link.title} Logosu`} 
+                    className="h-12 sm:h-16 w-auto object-contain drop-shadow-sm"
+                  />
+                ) : (
+                  <span className="flex h-12 w-12 items-center justify-center rounded-md bg-accent text-accent-foreground">
+                    <link.icon aria-hidden className="h-6 w-6 text-primary" />
+                  </span>
+                )}
                 <ExternalLink
                   aria-hidden
                   className="h-4 w-4 text-muted-foreground transition group-hover:text-primary"

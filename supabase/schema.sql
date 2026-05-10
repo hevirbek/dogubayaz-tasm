@@ -5,6 +5,7 @@ create table if not exists public.doctors (
   room text,
   working_hours text,
   duty_type text,
+  nurse_name text,
   note text,
   sort_order integer not null default 0,
   is_active boolean not null default true,
@@ -17,6 +18,7 @@ create index if not exists doctors_sort_order_idx
 create table if not exists public.announcements (
   id uuid primary key default gen_random_uuid(),
   title text not null,
+  slug text unique,
   content text not null,
   published_at timestamptz not null default now(),
   is_active boolean not null default true,

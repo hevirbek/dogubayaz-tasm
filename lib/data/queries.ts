@@ -65,3 +65,27 @@ export async function getActiveDoctorLeaves(): Promise<any[]> {
     
   return data || [];
 }
+
+export async function getAnnouncementBySlug(slugOrId: string): Promise<Announcement | null> {
+  const supabase = getSupabaseAdmin();
+
+  if (!supabase) {
+    return fallbackAnnouncements.find((a) => a.slug === slugOrId || a.id === slugOrId) || null;
+  }
+
+  // Check if it looks like a UUID to query by id, otherwise query by slug
+  const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(slugOrId);
+  const column = isUuid ? "id" : "slug";
+
+  const { data, error } = await supabase
+    .from("announcements")
+    .select("*")
+    .eq(column, slugOrId)
+    .single();
+
+  if (error || !data) {
+    return fallbackAnnouncements.find((a) => a.slug === slugOrId || a.id === slugOrId) || null;
+  }
+
+  return data as Announcement;
+}

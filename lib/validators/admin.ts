@@ -16,6 +16,7 @@ export const doctorAdminSchema = z.object({
   room: z.preprocess(emptyToNull, z.string().max(120).nullable()),
   working_hours: z.preprocess(emptyToNull, z.string().max(160).nullable()),
   duty_type: z.preprocess(emptyToNull, z.string().max(160).nullable()),
+  nurse_name: z.preprocess(emptyToNull, z.string().max(160).nullable()),
   note: z.preprocess(emptyToNull, z.string().max(400).nullable()),
   sort_order: z.coerce.number().int().min(0).max(999),
   is_active: z.coerce.boolean()

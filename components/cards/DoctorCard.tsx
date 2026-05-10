@@ -1,4 +1,4 @@
-import { BriefcaseMedical, Clock3, DoorOpen, Info, Stethoscope, CalendarX2 } from "lucide-react";
+import { Clock3, DoorOpen, Info, Stethoscope, CalendarX2 } from "lucide-react";
 
 import {
   Card,
@@ -18,12 +18,16 @@ export function DoctorCard({ doctor, leave }: { doctor: Doctor; leave?: any }) {
             <Stethoscope aria-hidden className="h-6 w-6" />
           </div>
           <span className="rounded-md bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
-            {doctor.title}
+            {doctor.duty_type || "Aile Sağlığı Ekibi"}
           </span>
         </div>
-        <CardTitle>{doctor.full_name}</CardTitle>
+        <CardTitle>{doctor.title} {doctor.full_name}</CardTitle>
         <CardDescription>
-          {doctor.duty_type || "Aile sağlığı merkezi ekibi"}
+          {doctor.nurse_name ? (
+            <span className="block mt-1 font-medium text-primary">ASÇ: {doctor.nurse_name}</span>
+          ) : (
+            <span className="block mt-1">Aile sağlığı merkezi ekibi</span>
+          )}
         </CardDescription>
       </CardHeader>
       <CardContent className="grid gap-4 text-sm">
@@ -43,18 +47,6 @@ export function DoctorCard({ doctor, leave }: { doctor: Doctor; leave?: any }) {
               <dt className="font-medium text-foreground">Poliklinik saatleri</dt>
               <dd className="mt-0.5 text-muted-foreground">
                 {doctor.working_hours || "Bilgi eklenecek"}
-              </dd>
-            </div>
-          </div>
-          <div className="flex gap-3 rounded-md bg-slate-50 p-3">
-            <BriefcaseMedical
-              aria-hidden
-              className="mt-0.5 h-4 w-4 shrink-0 text-primary"
-            />
-            <div>
-              <dt className="font-medium text-foreground">Görev türü</dt>
-              <dd className="mt-0.5 text-muted-foreground">
-                {doctor.duty_type || doctor.title}
               </dd>
             </div>
           </div>
