@@ -3,9 +3,7 @@ import { Mail, MapPin, Phone } from "lucide-react";
 
 import { InfoCard } from "@/components/cards/InfoCard";
 import { ContactForm } from "@/components/forms/ContactForm";
-import { ContactGuidance } from "@/components/sections/ContactGuidance";
 import { DirectionsGuide } from "@/components/sections/DirectionsGuide";
-import { EmergencyNoticeCard } from "@/components/sections/EmergencyNoticeCard";
 import { OpeningStatusCard } from "@/components/sections/OpeningStatusCard";
 import { WorkingHoursCard } from "@/components/sections/WorkingHoursCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -39,7 +37,6 @@ export default function ContactPage() {
         <div className="container grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
           <div className="grid gap-5">
             <OpeningStatusCard />
-            <EmergencyNoticeCard />
             <InfoCard icon={Phone} title="Telefon">
               <a href={`tel:${siteConfig.phone}`} className="font-medium text-foreground">
                 {siteConfig.phone}
@@ -53,7 +50,6 @@ export default function ContactPage() {
             <InfoCard icon={MapPin} title="Adres">
               {siteConfig.address}
             </InfoCard>
-            <ContactGuidance />
             <WorkingHoursCard />
           </div>
 

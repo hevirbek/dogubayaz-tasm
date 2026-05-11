@@ -1,16 +1,8 @@
 import Image from "next/image";
-import Link from "next/link";
-import { ArrowRight, MapPin, MessageCircle, Phone } from "lucide-react";
 
-import { EmergencyNoticeCard } from "@/components/sections/EmergencyNoticeCard";
-import { Button } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 
 export function Hero() {
-  const mapsHref = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
-    siteConfig.address
-  )}`;
-
   return (
     <section className="relative overflow-hidden bg-gradient-to-b from-cyan-50 via-white to-white">
       <div className="container grid gap-10 py-12 md:grid-cols-[1.05fr_0.95fr] md:items-center md:py-16 lg:py-20">
@@ -24,32 +16,6 @@ export function Hero() {
           <p className="mt-5 max-w-2xl text-lg leading-8 text-slate-700">
             {siteConfig.description}
           </p>
-
-          <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-            <Button asChild size="lg">
-              <a href={mapsHref} target="_blank" rel="noreferrer">
-                <MapPin aria-hidden className="h-5 w-5" />
-                Yol Tarifi Al
-              </a>
-            </Button>
-            <Button asChild variant="secondary" size="lg">
-              <a href={`tel:${siteConfig.phone}`}>
-                <Phone aria-hidden className="h-5 w-5" />
-                Telefon Et
-              </a>
-            </Button>
-            <Button asChild variant="outline" size="lg">
-              <Link href="/iletisim">
-                <MessageCircle aria-hidden className="h-5 w-5" />
-                İletişime Geç
-                <ArrowRight aria-hidden className="h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
-
-          <div className="mt-8 max-w-2xl">
-            <EmergencyNoticeCard />
-          </div>
         </div>
 
         <div className="relative">

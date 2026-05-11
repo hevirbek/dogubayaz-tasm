@@ -30,7 +30,7 @@ export function ContactPreview() {
               </a>
             </InfoCard>
             <InfoCard icon={Mail} title="E-posta">
-              <a href={`mailto:${siteConfig.email}`} className="font-medium text-foreground">
+              <a href={`mailto:${siteConfig.email}`} className="break-all font-medium text-foreground">
                 {siteConfig.email}
               </a>
             </InfoCard>

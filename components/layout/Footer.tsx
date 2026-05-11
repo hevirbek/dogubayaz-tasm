@@ -21,9 +21,13 @@ export async function Footer() {
             Koruyucu sağlık hizmetleri, aile hekimliği izlemleri ve genel
             bilgilendirme süreçleri için güvenilir iletişim noktası.
           </p>
-          <p className="mt-4 rounded-md border border-emerald-400/30 bg-emerald-400/10 px-4 py-3 text-sm text-emerald-50">
-            Acil durumlarda 112 Acil Çağrı Merkezi’ni arayınız.
-          </p>
+          <div className="mt-4 flex items-start gap-3 rounded-md border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-50">
+            <AlertTriangle aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
+            <p>
+              Acil durumlarda 112 Acil Çağrı Merkezi&apos;ni arayınız. Bu web
+              sitesi acil sağlık başvuruları için kullanılmamalıdır.
+            </p>
+          </div>
         </div>
 
         <div>
