@@ -30,6 +30,15 @@ export const announcementAdminSchema = z.object({
   is_active: z.coerce.boolean()
 });
 
+export const newsAdminSchema = z.object({
+  id: z.string().optional(),
+  title: z.string().trim().min(2).max(180),
+  excerpt: z.string().trim().min(10).max(280),
+  content: z.string().trim().min(5).max(8000),
+  published_at: z.string().min(10).max(40),
+  is_active: z.coerce.boolean()
+});
+
 export const asmWorkingHoursAdminSchema = z.object({
   id: z.coerce.number().optional().default(1),
   weekdays_start: z.string().trim().min(5).max(5),

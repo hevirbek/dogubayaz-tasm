@@ -1,11 +1,12 @@
-import { Database, Activity, CheckCircle, Users } from "lucide-react";
+import { Database, Activity, CheckCircle, Newspaper, Users } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { isSupabaseConfigured } from "@/lib/supabase/server";
 import { requireAdmin } from "@/lib/admin/auth";
 import { 
   getAdminAnnouncements, 
   getAdminDoctors,
-  getAdminContactMessages
+  getAdminContactMessages,
+  getAdminNews
 } from "@/lib/admin/data";
 
 export const dynamic = "force-dynamic";
@@ -14,13 +15,14 @@ export default async function AdminDashboardPage() {
   await requireAdmin();
   const supabaseConfigured = isSupabaseConfigured();
 
-  const [doctors, announcements, contactMessages] = supabaseConfigured
+  const [doctors, announcements, news, contactMessages] = supabaseConfigured
     ? await Promise.all([
         getAdminDoctors(), 
         getAdminAnnouncements(),
+        getAdminNews(),
         getAdminContactMessages()
       ])
-    : [[], [], []];
+    : [[], [], [], []];
 
   if (!supabaseConfigured) {
     return (
@@ -51,7 +53,7 @@ export default async function AdminDashboardPage() {
         </p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3 mt-4">
+      <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Toplam Hekim</CardTitle>
@@ -74,6 +76,17 @@ export default async function AdminDashboardPage() {
           </CardContent>
         </Card>
         
+        <Card>
+          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+            <CardTitle className="text-sm font-medium">Aktif Haberler</CardTitle>
+            <Newspaper className="h-4 w-4 text-muted-foreground" />
+          </CardHeader>
+          <CardContent>
+            <div className="text-2xl font-bold">{news.filter((item) => item.is_active).length}</div>
+            <p className="text-xs text-muted-foreground">Toplam {news.length} haber</p>
+          </CardContent>
+        </Card>
+
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium">Bekleyen Mesajlar</CardTitle>

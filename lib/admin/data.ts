@@ -2,6 +2,7 @@ import "server-only";
 
 import type { Announcement } from "@/lib/data/announcements";
 import type { Doctor } from "@/lib/data/doctors";
+import type { News } from "@/lib/data/news";
 import { getSupabaseAdmin } from "@/lib/supabase/server";
 
 export async function getAdminDoctors(): Promise<Doctor[]> {
@@ -41,6 +42,25 @@ export async function getAdminAnnouncements(): Promise<Announcement[]> {
   }
 
   return data as Announcement[];
+}
+
+export async function getAdminNews(): Promise<News[]> {
+  const supabase = getSupabaseAdmin();
+
+  if (!supabase) {
+    return [];
+  }
+
+  const { data, error } = await supabase
+    .from("news")
+    .select("*")
+    .order("published_at", { ascending: false });
+
+  if (error || !data) {
+    return [];
+  }
+
+  return data as News[];
 }
 
 export async function getAdminAsmWorkingHours() {

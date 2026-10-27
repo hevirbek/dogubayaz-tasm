@@ -38,12 +38,29 @@ create table if not exists public.contact_messages (
   created_at timestamptz not null default now()
 );
 
+create table if not exists public.news (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  slug text unique,
+  excerpt text not null,
+  content text not null,
+  cover_image_url text not null,
+  cover_image_path text,
+  published_at timestamptz not null default now(),
+  is_active boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists news_published_at_idx
+  on public.news (published_at desc);
+
 grant usage on schema public to service_role;
 
 grant select, insert, update, delete
   on public.doctors,
      public.announcements,
-     public.contact_messages
+     public.contact_messages,
+     public.news
   to service_role;
 
 create table if not exists public.asm_working_hours (
@@ -74,3 +91,33 @@ grant select, insert, update, delete
      public.closed_dates,
      public.doctor_leaves
   to service_role;
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'news-covers',
+  'news-covers',
+  true,
+  2097152,
+  array['image/jpeg', 'image/png', 'image/webp']
+)
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_policies
+    where schemaname = 'storage'
+      and tablename = 'objects'
+      and policyname = 'Public read for news covers'
+  ) then
+    create policy "Public read for news covers"
+      on storage.objects
+      for select
+      to public
+      using (bucket_id = 'news-covers');
+  end if;
+end $$;

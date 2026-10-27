@@ -1,3 +1,5 @@
+import { toolMenuGroups, type ToolMenuGroup } from "@/lib/tools/catalog";
+
 export const siteConfig = {
   siteName: process.env.NEXT_PUBLIC_SITE_NAME || "Aile Sağlığı Merkezi",
   asmName: process.env.NEXT_PUBLIC_ASM_NAME || "Örnek Aile Sağlığı Merkezi",
@@ -29,10 +31,19 @@ export const siteConfig = {
   mapEmbedUrl: process.env.NEXT_PUBLIC_GOOGLE_MAPS_EMBED_URL || ""
 };
 
-export const navItems = [
+export type NavItem = {
+  label: string;
+  href?: string;
+  groups?: ToolMenuGroup[];
+};
+
+export const navItems: NavItem[] = [
   { href: "/", label: "Ana Sayfa" },
   { href: "/hekimler", label: "Hekimler" },
   { href: "/hizmetler", label: "Hizmetler" },
+  { href: "/haberler", label: "Haberler" },
   { href: "/duyurular", label: "Duyurular" },
+  { href: "/hakkimizda", label: "Hakkımızda" },
+  { label: "Araçlar", groups: toolMenuGroups },
   { href: "/iletisim", label: "İletişim" }
 ];

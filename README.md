@@ -35,7 +35,7 @@ CONTACT_FROM_EMAIL=
 ADMIN_PASSWORD=
 ```
 
-Supabase veya Resend bilgileri yoksa site çalışmaya devam eder. Doktor ve duyuru verileri yerel fallback dosyalarından gelir. İletişim formu yapılandırma eksikliğini kullanıcı dostu bir mesajla bildirir.
+Supabase veya Resend bilgileri yoksa site çalışmaya devam eder. Doktor, duyuru ve haber verileri yerel fallback dosyalarından gelir. İletişim formu yapılandırma eksikliğini kullanıcı dostu bir mesajla bildirir.
 
 ## Supabase Kurulumu
 
@@ -50,6 +50,60 @@ Projeyi daha önce kurduysanız ve `doctors` tablosu zaten varsa, yeni personel 
 alter table public.doctors
   add column if not exists duty_type text,
   add column if not exists note text;
+```
+
+Haberler için tablo ve kapak görseli kovası henüz yoksa şu komutu da çalıştırın:
+
+```sql
+create table if not exists public.news (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  slug text unique,
+  excerpt text not null,
+  content text not null,
+  cover_image_url text not null,
+  cover_image_path text,
+  published_at timestamptz not null default now(),
+  is_active boolean not null default true,
+  created_at timestamptz not null default now()
+);
+
+create index if not exists news_published_at_idx
+  on public.news (published_at desc);
+
+grant select, insert, update, delete
+  on public.news
+  to service_role;
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'news-covers',
+  'news-covers',
+  true,
+  2097152,
+  array['image/jpeg', 'image/png', 'image/webp']
+)
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_policies
+    where schemaname = 'storage'
+      and tablename = 'objects'
+      and policyname = 'Public read for news covers'
+  ) then
+    create policy "Public read for news covers"
+      on storage.objects
+      for select
+      to public
+      using (bucket_id = 'news-covers');
+  end if;
+end $$;
 ```
 
 Üretime çıkmadan önce tablo erişimleri ve RLS politikaları kurum politikanıza göre yapılandırılmalıdır. İletişim formu eklemeleri sunucu tarafındaki API route üzerinden service role key ile yapılır; bu anahtar tarayıcıya gönderilmez.
@@ -72,6 +126,8 @@ Admin paneliyle şunlar yönetilebilir:
 - Hekim/personel aktif-pasif durumu
 - Duyuru ekleme, düzenleme, silme
 - Duyuru aktif-pasif durumu
+- Haber ekleme, düzenleme, silme
+- Haber kapak görseli ve aktif-pasif durumu
 
 Admin işlemleri yalnızca sunucu tarafında çalışır ve Supabase `SUPABASE_SERVICE_ROLE_KEY` kullanır. Bu anahtar tarayıcıya gönderilmez.
 

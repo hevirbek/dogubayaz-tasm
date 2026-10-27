@@ -2,6 +2,7 @@ import Link from "next/link";
 import { Clock, Mail, MapPin, Phone, AlertTriangle } from "lucide-react";
 
 import { navItems, siteConfig } from "@/config/site";
+import { calculatorTools } from "@/lib/tools/catalog";
 import { getAdminAsmWorkingHours, getAdminClosedDates } from "@/lib/admin/data";
 
 export async function Footer() {
@@ -35,21 +36,37 @@ export async function Footer() {
             Sayfalar
           </h3>
           <nav className="mt-4 grid gap-2" aria-label="Alt menü">
-            {navItems.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className="text-sm text-slate-300 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
-              >
-                {item.label}
-              </Link>
-            ))}
+            {navItems.map((item) =>
+              item.href ? (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  className="text-sm text-slate-300 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+                >
+                  {item.label}
+                </Link>
+              ) : null
+            )}
             <Link
               href="/gizlilik"
               className="text-sm text-slate-300 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
             >
               Gizlilik ve KVKK Bilgilendirmesi
             </Link>
+          </nav>
+          <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-slate-300">
+            Araçlar
+          </h3>
+          <nav className="mt-4 grid gap-2" aria-label="Hesaplama araçları">
+            {calculatorTools.map((tool) => (
+              <Link
+                key={tool.href}
+                href={tool.href}
+                className="text-sm text-slate-300 transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-emerald-300"
+              >
+                {tool.label}
+              </Link>
+            ))}
           </nav>
         </div>
 

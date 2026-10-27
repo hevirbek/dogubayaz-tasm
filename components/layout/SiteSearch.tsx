@@ -35,21 +35,49 @@ export function SiteSearch() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
+  const normalizedQuery = query.toLocaleLowerCase("tr-TR");
+  const pageResults = navItems.flatMap((item) => {
+    if (item.href && item.label.toLocaleLowerCase("tr-TR").includes(normalizedQuery)) {
+      return [{ label: item.label, href: item.href, external: false }];
+    }
+    if (!item.groups) return [];
+    const groupMatches =
+      normalizedQuery.length >= 4 &&
+      item.label.toLocaleLowerCase("tr-TR").includes(normalizedQuery);
+    return item.groups.flatMap((group) =>
+      group.items
+        .filter(
+          (child) =>
+            groupMatches || child.label.toLocaleLowerCase("tr-TR").includes(normalizedQuery)
+        )
+        .map((child) => ({
+          label: child.label,
+          href: child.href,
+          external: Boolean(child.external)
+        }))
+    );
+  });
   const results = [
-    ...navItems.filter((item) =>
-      item.label.toLowerCase().includes(query.toLowerCase())
-    ),
+    ...pageResults,
     ...services
       .filter(
         (service) =>
-          service.title.toLowerCase().includes(query.toLowerCase()) ||
-          service.description.toLowerCase().includes(query.toLowerCase())
+          service.title.toLocaleLowerCase("tr-TR").includes(normalizedQuery) ||
+          service.description.toLocaleLowerCase("tr-TR").includes(normalizedQuery)
       )
-      .map((s) => ({ label: `Hizmet: ${s.title}`, href: `/hizmetler/${s.slug}` }))
+      .map((service) => ({
+        label: `Hizmet: ${service.title}`,
+        href: `/hizmetler/${service.slug}`,
+        external: false
+      }))
   ];
 
-  const handleSelect = (href: string) => {
+  const handleSelect = (href: string, external: boolean) => {
     setIsOpen(false);
+    if (external) {
+      window.open(href, "_blank", "noopener,noreferrer");
+      return;
+    }
     router.push(href);
   };
 
@@ -105,7 +133,7 @@ export function SiteSearch() {
                   <li key={`${result.href}-${i}`}>
                     <button
                       className="w-full text-left px-4 py-3 hover:bg-muted text-sm focus:bg-muted focus:outline-none"
-                      onClick={() => handleSelect(result.href)}
+                      onClick={() => handleSelect(result.href, result.external)}
                     >
                       {result.label}
                     </button>

@@ -6,6 +6,7 @@ import {
   type Announcement
 } from "@/lib/data/announcements";
 import { fallbackDoctors, type Doctor } from "@/lib/data/doctors";
+import { fallbackNews, type News } from "@/lib/data/news";
 
 export async function getDoctors(): Promise<Doctor[]> {
   const supabase = getSupabaseAdmin();
@@ -64,6 +65,67 @@ export async function getActiveDoctorLeaves(): Promise<any[]> {
     .gte("end_date", todayStr);
     
   return data || [];
+}
+
+function sortActiveNews(items: News[]) {
+  return items
+    .filter((item) => item.is_active)
+    .sort(
+      (a, b) =>
+        new Date(b.published_at).getTime() - new Date(a.published_at).getTime()
+    );
+}
+
+export async function getNews(): Promise<News[]> {
+  const supabase = getSupabaseAdmin();
+
+  if (!supabase) {
+    return sortActiveNews(fallbackNews);
+  }
+
+  const { data, error } = await supabase
+    .from("news")
+    .select("*")
+    .eq("is_active", true)
+    .order("published_at", { ascending: false });
+
+  if (error || !data) {
+    return sortActiveNews(fallbackNews);
+  }
+
+  return data as News[];
+}
+
+export async function getNewsBySlug(slugOrId: string): Promise<News | null> {
+  const match = (item: News) =>
+    item.is_active && (item.slug === slugOrId || item.id === slugOrId);
+  const supabase = getSupabaseAdmin();
+
+  if (!supabase) {
+    return fallbackNews.find(match) || null;
+  }
+
+  const isUuid =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(
+      slugOrId
+    );
+  const column = isUuid ? "id" : "slug";
+
+  const { data, error } = await supabase
+    .from("news")
+    .select("*")
+    .eq(column, slugOrId)
+    .maybeSingle();
+
+  if (error) {
+    return fallbackNews.find(match) || null;
+  }
+
+  if (!data || !data.is_active) {
+    return null;
+  }
+
+  return data as News;
 }
 
 export async function getAnnouncementBySlug(slugOrId: string): Promise<Announcement | null> {

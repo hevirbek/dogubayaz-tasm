@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { LogOut, LayoutDashboard, Stethoscope, Megaphone, Clock, CalendarX, Mail } from "lucide-react";
+import { LogOut, LayoutDashboard, Stethoscope, Megaphone, Newspaper, Clock, Mail } from "lucide-react";
 
 import { logoutAction } from "@/app/admin/actions";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,7 @@ const navItems = [
   { href: "/admin", label: "Özet / Dashboard", icon: LayoutDashboard },
   { href: "/admin/hekimler", label: "Hekimler & İzinler", icon: Stethoscope },
   { href: "/admin/duyurular", label: "Duyuru Yönetimi", icon: Megaphone },
+  { href: "/admin/haberler", label: "Haber Yönetimi", icon: Newspaper },
   { href: "/admin/saatler", label: "Saatler & Tatiller", icon: Clock },
   { href: "/admin/mesajlar", label: "Gelen Mesajlar", icon: Mail },
 ];
