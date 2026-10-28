@@ -22,30 +22,14 @@ export function Navbar() {
             className="h-10 w-auto shrink-0 object-contain drop-shadow-sm"
           />
           <span className="min-w-0">
-            <span className="block truncate whitespace-nowrap text-[11px] font-bold leading-tight tracking-wide text-foreground sm:text-xs md:text-sm">
+            <span className="block text-xs font-bold leading-tight tracking-wide text-foreground sm:text-sm">
               AĞRI İL SAĞLIK MÜDÜRLÜĞÜ
             </span>
-            <span className="block truncate whitespace-nowrap text-[10px] font-semibold leading-tight text-muted-foreground sm:text-[11px] md:text-xs">
-              DOĞUBAYAZIT 2 NOLU AİLE SAĞLIK MERKEZİ
+            <span className="block text-[11px] font-semibold leading-tight text-muted-foreground sm:text-xs">
+              DOĞUBAYAZIT 2 NOLU AİLE SAĞLIĞI MERKEZİ
             </span>
           </span>
         </Link>
-
-        <nav className="hidden shrink-0 items-center gap-0.5 lg:flex" aria-label="Ana menü">
-          {navItems.map((item) =>
-            item.groups ? (
-              <NavDropdown key={item.label} label={item.label} groups={item.groups} />
-            ) : (
-              <Link
-                key={item.href}
-                href={item.href ?? "/"}
-                className="whitespace-nowrap rounded-md px-1.5 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring xl:px-3"
-              >
-                {item.label}
-              </Link>
-            )
-          )}
-        </nav>
 
         <div className="flex shrink-0 items-center gap-2">
           <SiteSearch />
@@ -58,6 +42,24 @@ export function Navbar() {
           <MobileMenu />
         </div>
       </div>
+
+      <nav className="hidden border-t border-border/80 lg:block" aria-label="Ana menü">
+        <div className="container flex items-center justify-center gap-1 py-1">
+          {navItems.map((item) =>
+            item.groups ? (
+              <NavDropdown key={item.label} label={item.label} groups={item.groups} />
+            ) : (
+              <Link
+                key={item.href}
+                href={item.href ?? "/"}
+                className="whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {item.label}
+              </Link>
+            )
+          )}
+        </div>
+      </nav>
     </header>
   );
 }

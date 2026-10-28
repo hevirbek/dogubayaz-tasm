@@ -52,7 +52,7 @@ export function NavDropdown({ label, groups }: { label: string; groups: ToolMenu
       <button
         type="button"
         className={cn(
-          "inline-flex items-center gap-1 whitespace-nowrap rounded-md px-1.5 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring xl:px-3",
+          "inline-flex items-center gap-1 whitespace-nowrap rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring",
           open && "bg-muted text-foreground"
         )}
         aria-expanded={open}
