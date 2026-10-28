@@ -17,10 +17,10 @@ export function OpeningStatusCard() {
           : "border-slate-200 bg-slate-50"
       )}
     >
-      <CardContent className="flex h-full gap-4 p-5">
+      <CardContent className="flex h-full gap-3 p-4">
         <span
           className={cn(
-            "flex h-11 w-11 shrink-0 items-center justify-center rounded-md",
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-md",
             status.isOpen
               ? "bg-emerald-600 text-white"
               : "bg-slate-800 text-white"

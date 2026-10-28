@@ -12,10 +12,10 @@ export function MapSection({ className }: { className?: string }) {
           title={`${siteConfig.asmName} harita konumu`}
           loading="lazy"
           referrerPolicy="no-referrer-when-downgrade"
-          className="h-full min-h-[320px] w-full border-0"
+          className="h-56 w-full border-0 lg:h-full lg:min-h-0"
         />
       ) : (
-        <CardContent className="grid h-full min-h-[320px] place-items-center bg-slate-50 p-8 text-center">
+        <CardContent className="grid h-56 place-items-center bg-slate-50 p-4 text-center lg:h-full lg:min-h-0">
           <div>
             <MapPin aria-hidden className="mx-auto h-10 w-10 text-primary" />
             <p className="mt-4 font-semibold text-foreground">Harita bilgisi eklenebilir</p>

@@ -63,44 +63,46 @@ export function ContactForm() {
   }
 
   return (
-    <form onSubmit={onSubmit} className="grid gap-5" noValidate>
-      <div className="rounded-lg border border-sky-200 bg-sky-50 p-4 text-sm leading-6 text-sky-950">
+    <form onSubmit={onSubmit} className="grid gap-3" noValidate>
+      <div className="rounded-lg border border-sky-200 bg-sky-50 p-3 text-sm leading-6 text-sky-950">
         Lütfen bu form üzerinden TC kimlik numarası, tıbbi rapor, tanı,
         reçete, test sonucu veya özel sağlık bilginizi paylaşmayınız. Bu form
         yalnızca genel iletişim amaçlıdır.
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid gap-1.5">
         <Label htmlFor="name">Ad Soyad *</Label>
         <Input id="name" name="name" autoComplete="name" aria-invalid={Boolean(errors.name)} />
         <FieldError errors={errors.name} />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2">
-        <div className="grid gap-2">
+      <div className="grid gap-3 sm:grid-cols-2">
+        <div className="grid gap-1.5">
           <Label htmlFor="email">E-posta</Label>
           <Input id="email" name="email" type="email" autoComplete="email" aria-invalid={Boolean(errors.email)} />
           <FieldError errors={errors.email} />
         </div>
-        <div className="grid gap-2">
+        <div className="grid gap-1.5">
           <Label htmlFor="phone">Telefon</Label>
           <Input id="phone" name="phone" type="tel" autoComplete="tel" aria-invalid={Boolean(errors.phone)} />
           <FieldError errors={errors.phone} />
         </div>
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid gap-1.5">
         <Label htmlFor="subject">Konu</Label>
         <Input id="subject" name="subject" aria-invalid={Boolean(errors.subject)} />
         <FieldError errors={errors.subject} />
       </div>
 
-      <div className="grid gap-2">
+      <div className="grid gap-1.5">
         <Label htmlFor="message">Mesaj *</Label>
         <Textarea
           id="message"
           name="message"
           maxLength={1000}
+          rows={4}
+          className="min-h-24"
           aria-invalid={Boolean(errors.message)}
         />
         <div className="flex justify-between gap-4 text-xs text-muted-foreground">
@@ -109,7 +111,7 @@ export function ContactForm() {
         </div>
       </div>
 
-      <div className="flex gap-3 rounded-lg border border-border p-4">
+      <div className="flex gap-3 rounded-lg border border-border p-3">
         <input
           id="consent"
           name="consent"

@@ -18,24 +18,24 @@ export const metadata: Metadata = {
 export default function ContactPage() {
   return (
     <>
-      <section className="bg-cyan-50 py-12">
+      <section className="bg-cyan-50 py-6">
         <div className="container">
           <p className="text-sm font-semibold uppercase tracking-wide text-primary">
             İletişim
           </p>
-          <h1 className="mt-2 text-4xl font-bold tracking-normal text-slate-950">
+          <h1 className="mt-2 text-3xl font-bold tracking-normal text-slate-950">
             Bize ulaşın
           </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-700">
+          <p className="mt-2 max-w-2xl text-base leading-6 text-slate-700">
             Genel iletişim talepleriniz için formu kullanabilir veya telefonla
             merkezimize ulaşabilirsiniz.
           </p>
         </div>
       </section>
 
-      <section className="section-padding">
-        <div className="container grid gap-8 lg:grid-cols-[0.9fr_1.1fr]">
-          <div className="grid gap-5">
+      <section className="py-6 lg:py-8">
+        <div className="container grid gap-5 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+          <div className="grid gap-3">
             <OpeningStatusCard />
             <InfoCard icon={Phone} title="Telefon">
               <a href={`tel:${siteConfig.phone}`} className="font-medium text-foreground">
@@ -54,10 +54,10 @@ export default function ContactPage() {
           </div>
 
           <Card>
-            <CardHeader>
+            <CardHeader className="p-5 pb-3">
               <CardTitle>Genel iletişim formu</CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-5 pt-0">
               <ContactForm />
             </CardContent>
           </Card>

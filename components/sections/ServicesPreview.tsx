@@ -15,7 +15,7 @@ export function ServicesPreview({ showAll = false }: { showAll?: boolean }) {
       <div className="container">
         <SectionHeading
           eyebrow="Hizmetler"
-          title="Koruyucu ve temel sağlık hizmetleri"
+          title="Koruyucu ve Temel Sağlık Hizmetleri"
           description="Aile hekimliği kapsamında sunulan hizmetler, bilgilendirme ve düzenli izlem süreçlerine destek olacak şekilde planlanır."
           action={
             showAll ? null : (

@@ -15,26 +15,11 @@ export async function Footer() {
   const todayClosed = closedDates?.find((d: any) => d.date === todayStr);
   return (
     <footer className="border-t border-border bg-slate-950 text-slate-100">
-      <div className="container grid gap-8 py-12 md:grid-cols-[1.5fr_1fr_1fr]">
+      <div className="container grid gap-8 py-8 sm:grid-cols-2 lg:grid-cols-3">
         <div>
-          <h2 className="text-lg font-semibold">{siteConfig.asmName}</h2>
-          <p className="mt-3 max-w-md text-sm leading-6 text-slate-300">
-            Koruyucu sağlık hizmetleri, aile hekimliği izlemleri ve genel
-            bilgilendirme süreçleri için güvenilir iletişim noktası.
-          </p>
-          <div className="mt-4 flex items-start gap-3 rounded-md border border-amber-400/30 bg-amber-400/10 px-4 py-3 text-sm text-amber-50">
-            <AlertTriangle aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-amber-300" />
-            <p>
-              Acil durumlarda 112 Acil Çağrı Merkezi&apos;ni arayınız. Bu web
-              sitesi acil sağlık başvuruları için kullanılmamalıdır.
-            </p>
-          </div>
-        </div>
-
-        <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
             Sayfalar
-          </h3>
+          </h2>
           <nav className="mt-4 grid gap-2" aria-label="Alt menü">
             {navItems.map((item) =>
               item.href ? (
@@ -54,9 +39,12 @@ export async function Footer() {
               Gizlilik ve KVKK Bilgilendirmesi
             </Link>
           </nav>
-          <h3 className="mt-6 text-sm font-semibold uppercase tracking-wide text-slate-300">
+        </div>
+
+        <div>
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
             Araçlar
-          </h3>
+          </h2>
           <nav className="mt-4 grid gap-2" aria-label="Hesaplama araçları">
             {calculatorTools.map((tool) => (
               <Link
@@ -71,9 +59,9 @@ export async function Footer() {
         </div>
 
         <div>
-          <h3 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-slate-300">
             İletişim
-          </h3>
+          </h2>
           <ul className="mt-4 grid gap-3 text-sm text-slate-300">
             <li className="flex gap-2">
               <MapPin aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-emerald-300" />

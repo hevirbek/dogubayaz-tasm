@@ -6,16 +6,16 @@ import { siteConfig } from "@/config/site";
 export function WorkingHoursCard() {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="p-4 pb-2">
         <div className="flex items-center gap-3">
-          <span className="flex h-11 w-11 items-center justify-center rounded-md bg-primary/10 text-primary">
+          <span className="flex h-10 w-10 items-center justify-center rounded-md bg-primary/10 text-primary">
             <Clock aria-hidden className="h-5 w-5" />
           </span>
           <CardTitle>Çalışma Saatleri</CardTitle>
         </div>
       </CardHeader>
-      <CardContent>
-        <dl className="grid gap-3 text-sm">
+      <CardContent className="p-4 pt-0">
+        <dl className="grid gap-2 text-sm">
           {siteConfig.workingHours.map((item) => (
             <div key={item.days} className="flex items-center justify-between gap-4">
               <dt className="text-muted-foreground">{item.days}</dt>

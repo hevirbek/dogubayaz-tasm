@@ -13,8 +13,8 @@ export function InfoCard({
 }) {
   return (
     <Card className="h-full">
-      <CardContent className="flex h-full gap-4 p-5">
-        <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
+      <CardContent className="flex h-full gap-3 p-4">
+        <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-md bg-primary/10 text-primary">
           <Icon aria-hidden className="h-5 w-5" />
         </span>
         <div>
