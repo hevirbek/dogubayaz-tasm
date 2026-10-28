@@ -19,7 +19,7 @@ const legend = [
 
 export function VaccineChart({ matrix }: { matrix: VaccineMatrix }) {
   const today = todayStart();
-  const nextKey = matrix.columns.find((column) => column.date >= today)?.key;
+  const nextKey = matrix.columns.find((column) => column.end >= today)?.key;
 
   return (
     <div className="vaccine-chart overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-card">
@@ -53,6 +53,7 @@ export function VaccineChart({ matrix }: { matrix: VaccineMatrix }) {
                 {matrix.columns.map((column) => {
                   const filled = row.columns.includes(column.key);
                   const upcoming = column.key === nextKey;
+                  const text = row.notes?.[column.key] ?? column.when;
                   return (
                     <td
                       key={column.key}
@@ -64,7 +65,7 @@ export function VaccineChart({ matrix }: { matrix: VaccineMatrix }) {
                       )}
                     >
                       {filled ? (
-                        <span className="block whitespace-pre-line text-[11px] leading-tight">{column.when}</span>
+                        <span className="block whitespace-pre-line text-[11px] leading-tight">{text}</span>
                       ) : null}
                     </td>
                   );

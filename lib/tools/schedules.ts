@@ -23,13 +23,19 @@ export type ScheduleEntry = {
 export type VaccineColumn = {
   key: string;
   label: string;
-  date: Date;
+  start: Date;
+  end: Date;
   when: string;
 };
 
 export type VaccineMatrix = {
   columns: VaccineColumn[];
-  rows: Array<{ key: string; label: string; columns: string[] }>;
+  rows: Array<{
+    key: string;
+    label: string;
+    columns: string[];
+    notes?: Record<string, string>;
+  }>;
 };
 
 export type ScheduleResult = {
@@ -47,40 +53,53 @@ function dayWindow(birth: Date, startDay: number, endDay: number) {
   };
 }
 
-const vaccineColumns: Array<{ key: string; label: string; months: number }> = [
-  { key: "birth", label: "Doğum", months: 0 },
-  { key: "m2", label: "2.\nAy sonu", months: 2 },
-  { key: "m4", label: "4.\nAy sonu", months: 4 },
-  { key: "m6", label: "6.\nAy sonu", months: 6 },
-  { key: "m9", label: "9.\nAy sonu", months: 9 },
-  { key: "m12", label: "12.\nAy sonu", months: 12 },
-  { key: "m18", label: "18.\nAy sonu", months: 18 },
-  { key: "m24", label: "24.\nAy sonu", months: 24 },
-  { key: "m48", label: "48.\nAy", months: 48 },
-  { key: "y13", label: "13\nYaş", months: 13 * 12 }
+const vaccineColumns: Array<{ key: string; label: string; startDay: number }> = [
+  { key: "birth", label: "Doğum", startDay: 0 },
+  { key: "m2", label: "2.\nAy sonu", startDay: 60 },
+  { key: "m4", label: "4.\nAy sonu", startDay: 120 },
+  { key: "m6", label: "6.\nAy sonu", startDay: 180 },
+  { key: "m9", label: "9.\nAy sonu", startDay: 270 },
+  { key: "m12", label: "12.\nAy sonu", startDay: 365 },
+  { key: "m18", label: "18.\nAy sonu", startDay: 540 },
+  { key: "m24", label: "24.\nAy sonu", startDay: 730 },
+  { key: "m48", label: "48.\nAy", startDay: 1460 },
+  { key: "y13", label: "13\nYaş", startDay: 13 * 365 }
 ];
 
-const vaccineRows: Array<{ key: string; label: string; columns: string[] }> = [
+const vaccineRows: Array<{
+  key: string;
+  label: string;
+  columns: string[];
+  notes?: Record<string, string>;
+}> = [
   { key: "hepb", label: "Hep-B", columns: ["birth"] },
   { key: "bcg", label: "BCG", columns: ["m2"] },
   { key: "kpa", label: "KPA", columns: ["m2", "m4", "m12"] },
   { key: "karma", label: "DaBT - İPA-Hib - HepB", columns: ["m2", "m4", "m6", "m18"] },
   { key: "opa", label: "OPA", columns: ["m6", "m18"] },
-  { key: "varicella", label: "Suçiçeği", columns: ["m12"] },
-  { key: "kkk", label: "KKK", columns: ["m9", "m12", "m48"] },
+  { key: "varicella", label: "Suçiçeği", columns: ["m12", "m48"] },
+  { key: "kkk", label: "KKK", columns: ["m9", "m12", "m48"], notes: { m9: "EK DOZ" } },
   { key: "hepa", label: "Hep-A", columns: ["m18", "m24"] },
   { key: "dabt", label: "DaBT-İPA", columns: ["m48"] },
   { key: "td", label: "Td", columns: ["y13"] }
 ];
 
+function vaccineWindow(birth: Date, startDay: number) {
+  return {
+    start: addDays(birth, startDay),
+    end: addDays(birth, startDay + 29)
+  };
+}
+
 function vaccine(birth: Date): ScheduleResult {
   const columns = vaccineColumns.map((column) => {
-    const date = addMonths(birth, column.months);
+    const window = vaccineWindow(birth, column.startDay);
     return {
       key: column.key,
       label: column.label,
-      date,
-      when: formatChartDate(date)
+      start: window.start,
+      end: window.end,
+      when: `${formatChartDate(window.start)}\n${formatChartDate(window.end)}`
     };
   });
 
@@ -89,13 +108,13 @@ function vaccine(birth: Date): ScheduleResult {
     entries: columns.map((column) => ({
       key: column.key,
       title: column.label.replace("\n", " "),
-      when: formatLongDate(column.date),
+      when: formatDateRange(column.start, column.end),
       detail: vaccineRows
         .filter((row) => row.columns.includes(column.key))
-        .map((row) => row.label)
+        .map((row) => row.notes?.[column.key] ?? row.label)
         .join("\n"),
-      start: column.date,
-      end: column.date
+      start: column.start,
+      end: column.end
     }))
   };
 }

@@ -44,7 +44,7 @@ export function diffDays(from: Date, to: Date) {
 const shortMonths = ["Oca", "Şub", "Mar", "Nis", "May", "Haz", "Tem", "Ağu", "Eyl", "Eki", "Kas", "Ara"];
 
 export function formatChartDate(date: Date) {
-  return `${date.getDate()} ${shortMonths[date.getMonth()]}\n${date.getFullYear()}`;
+  return `${date.getDate()} ${shortMonths[date.getMonth()]} ${date.getFullYear()}`;
 }
 
 export function formatLongDate(date: Date) {

@@ -57,7 +57,7 @@ export const calculatorTools: CalculatorTool[] = [
     slug: "bebek-asi-takvimi",
     label: "Bebek Aşı Takvimi Hesaplama",
     href: "/araclar/bebek-asi-takvimi",
-    description: "Doğum tarihine göre ulusal çocukluk dönemi aşı günlerini görün.",
+    description: "Doğum tarihine göre ulusal çocukluk dönemi aşı aralıklarını görün.",
     footnote: "",
     kind: "schedule",
     schedule: "vaccine",
