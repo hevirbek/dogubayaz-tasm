@@ -28,7 +28,7 @@ export function ServiceCard({
 }) {
   return (
     <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:shadow-soft">
-      <div className="relative aspect-[16/10]">
+      <div className="relative aspect-[3/2]">
         <Image
           src={image.src}
           alt={image.alt}

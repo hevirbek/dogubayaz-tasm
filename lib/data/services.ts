@@ -35,8 +35,8 @@ export const services: Service[] = [
     description: "Bebek, çocuk ve yetişkinler için Sağlık Bakanlığı ulusal aşı takvimi kapsamında ücretsiz, güvenli ve düzenli aşı takip hizmeti sunulmaktadır.",
     icon: ShieldCheck,
     image: {
-      src: "/images/hakkimizda/follow-up.jpg",
-      alt: "Masasında kayıt tutan bir hekim"
+      src: "/images/hizmetler/asi-takibi.jpg",
+      alt: "Çocuğa aşı uygulayan sağlık çalışanı ve aşı takibi bilgileri"
     },
     detailIntro: "Aşı takibi, toplum sağlığını korumak ve önlenebilir hastalıklara karşı direnç geliştirmek için sunduğumuz en önemli koruyucu sağlık hizmetlerinden biridir. Aile sağlığı merkezimizde tüm aşı uygulamaları soğuk zincir kurallarına titizlikle uyularak, güvenli ve hijyenik bir ortamda gerçekleştirilir.",
     detailSections: [
@@ -61,8 +61,8 @@ export const services: Service[] = [
     description: "Anne ve bebek sağlığını korumak için gebelik başlangıcından lohusalık döneminin sonuna kadar düzenli tıbbi takip ve danışmanlık hizmeti sunulmaktadır.",
     icon: HeartPulse,
     image: {
-      src: "/images/hakkimizda/intro.jpg",
-      alt: "Hekim odası ile muayene masasının göründüğü aydınlık bir klinik iç mekanı"
+      src: "/images/hizmetler/gebe-izlem.jpg",
+      alt: "Gebe izlemi sırasında ultrason yapan hekim"
     },
     detailIntro: "Sağlıklı bir nesil, sağlıklı bir anne ile başlar. Gebelik ve lohusalık dönemi boyunca hem annenin hem de bebeğin sağlığını yakından takip etmek, olası riskleri önceden belirlemek ve sağlıklı bir doğum süreci geçirmenizi sağlamak temel amacımızdır.",
     detailSections: [
@@ -87,8 +87,8 @@ export const services: Service[] = [
     description: "Doğumdan itibaren çocukluk dönemi boyunca büyüme, fiziksel ve zihinsel gelişim takipleri düzenli yapılmaktadır.",
     icon: Baby,
     image: {
-      src: "/images/hakkimizda/waiting.jpg",
-      alt: "Pencere kenarında sandalyelerin sıralandığı bir bekleme alanı"
+      src: "/images/hizmetler/bebek-cocuk-izlem.jpg",
+      alt: "Bebek muayenesi yapan hekim ve çocuk izlemi bilgileri"
     },
     detailIntro: "Çocuklarımızın sağlıklı büyümesi ve gelişmesi için düzenli sağlık kontrolleri vazgeçilmezdir. Bebek ve çocuk izlemleri ile olası gelişim geriliklerini veya sağlık sorunlarını erken dönemde tespit ederek gerekli müdahalelerin zamanında yapılmasını sağlıyoruz.",
     detailSections: [
@@ -113,8 +113,8 @@ export const services: Service[] = [
     description: "Hipertansiyon, diyabet, obezite, inme, kronik böbrek yetmezliği, astım, KOAH ve kalp hastalıkları gibi kronik rahatsızlıkların taraması/takibi ve yaşlı hastalarımızın genel durum değerlendirmesi düzenli olarak yapılmaktadır.",
     icon: ClipboardCheck,
     image: {
-      src: "/images/hakkimizda/team.jpg",
-      alt: "İki sağlık çalışanı bir röntgen görüntüsünü birlikte inceliyor"
+      src: "/images/hizmetler/kronik-hastalik-takibi.jpg",
+      alt: "Tansiyon ölçen hekim ve kronik hastalık takibi bilgileri"
     },
     detailIntro: "Kronik hastalıklar, düzenli doktor kontrolü ve yaşam tarzı değişiklikleri ile başarıyla yönetilebilir. Hastalarımızın yaşam kalitesini artırmak, hastalık komplikasyonlarını önlemek ve ilaç tedavilerini düzenlemek amacıyla kapsamlı bir takip programı yürütüyoruz.",
     detailSections: [
@@ -191,8 +191,8 @@ export const services: Service[] = [
     description: "Meme, rahim ağzı ve kolorektal kanser taramaları ulusal tarama programı kapsamında planlanmakta ve gerekli yönlendirme yapılmaktadır.",
     icon: Ribbon,
     image: {
-      src: "/images/hakkimizda/corridor.jpg",
-      alt: "Kapılar ve oturma sıraları bulunan aydınlık bir sağlık koridoru"
+      src: "/images/hizmetler/kanser-taramalari.jpg",
+      alt: "Meme, rahim ağzı ve kolon kanseri taramalarını anlatan görsel"
     },
     detailIntro: "Ulusal kanser tarama programı kapsamında meme, rahim ağzı ve kolorektal kanser taramaları aile sağlığı merkezimizde planlanır. Uygun yaş ve risk grubundaki kişiler bilgilendirilir, gerektiğinde ilgili merkeze yönlendirilir.",
     detailSections: [
