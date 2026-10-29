@@ -8,15 +8,15 @@ import { Button } from "@/components/ui/button";
 
 const slides = [
   {
-    src: "/images/hero/birinci-basamak.jpg",
+    src: "/images/hero/birinci-basamak.png",
     alt: "Aile hekimliği birimleri sağlığınızın korunmasında ve tedavinizin başlangıcında birinci basamaktır. İleri merkeze başvurmadan önce aile hekiminize başvurunuz."
   },
   {
-    src: "/images/hero/randevu.jpg",
+    src: "/images/hero/randevu.png",
     alt: "Aile hekimliğinde muayene olmadan önce mutlaka MHRS veya 182 üzerinden randevu alınız."
   },
   {
-    src: "/images/hero/kimlik.jpg",
+    src: "/images/hero/kimlik.png",
     alt: "Muayene olmaya gelirken yanınızda mutlaka geçerli kimlik kartı bulundurunuz ve randevu saatinize özen gösteriniz."
   }
 ];
