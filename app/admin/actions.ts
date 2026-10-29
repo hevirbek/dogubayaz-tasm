@@ -67,13 +67,70 @@ export async function saveDoctorAction(formData: FormData) {
   if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
 
   const { id, ...payload } = parsed.data;
+  const photo = getImageFile(formData, "photo");
+
+  let existing: {
+    photo_url: string | null;
+    photo_path: string | null;
+  } | null = null;
+
+  if (id) {
+    const { data, error } = await supabase
+      .from("doctors")
+      .select("photo_url, photo_path")
+      .eq("id", id)
+      .maybeSingle();
+
+    if (error || !data) {
+      const missingColumn = error?.message.toLowerCase().includes("photo_");
+      return {
+        error: missingColumn
+          ? "Hekim görseli kaydedilemedi. schema.sql içindeki doctors fotoğraf alanlarını çalıştırın."
+          : "Hekim bulunamadı."
+      };
+    }
+    existing = data;
+  }
+
+  let photoUrl = existing?.photo_url ?? null;
+  let photoPath = existing?.photo_path ?? null;
+  let uploadedPath: string | null = null;
+  let pathToRemove: string | null = null;
+
+  if (photo) {
+    const uploaded = await uploadPublicImage(supabase, "doctor-photos", photo, "Hekim görseli");
+    if ("error" in uploaded) return uploaded;
+    uploadedPath = uploaded.path;
+    photoUrl = uploaded.url;
+    photoPath = uploaded.path;
+    if (existing?.photo_path && existing.photo_path !== uploaded.path) {
+      pathToRemove = existing.photo_path;
+    }
+  }
+
+  const dataToSave = {
+    ...payload,
+    photo_url: photoUrl,
+    photo_path: photoPath
+  };
+
   const response = id
-    ? await supabase.from("doctors").update(payload).eq("id", id)
-    : await supabase.from("doctors").insert(payload);
+    ? await supabase.from("doctors").update(dataToSave).eq("id", id)
+    : await supabase.from("doctors").insert(dataToSave);
 
   if (response.error) {
+    if (uploadedPath) await removePublicImage(supabase, "doctor-photos", uploadedPath);
     console.error("Doctor save failed", response.error);
-    return { error: "Kayıt işlemi başarısız oldu." };
+    const missingColumn = response.error.message.toLowerCase().includes("photo_");
+    return {
+      error: missingColumn
+        ? "Hekim görseli kaydedilemedi. schema.sql içindeki doctors fotoğraf alanlarını çalıştırın."
+        : "Kayıt işlemi başarısız oldu."
+    };
+  }
+
+  if (pathToRemove) {
+    await removePublicImage(supabase, "doctor-photos", pathToRemove);
   }
 
   revalidateContent();
@@ -86,11 +143,61 @@ export async function deleteDoctorAction(formData: FormData) {
   const id = getString(formData, "id");
   if (!supabase || !id) return { error: "Kayıt bulunamadı." };
 
+  const { data } = await supabase
+    .from("doctors")
+    .select("photo_path")
+    .eq("id", id)
+    .maybeSingle();
+
   const { error } = await supabase.from("doctors").delete().eq("id", id);
   if (error) return { error: "Silme işlemi başarısız." };
 
+  if (data?.photo_path) {
+    await removePublicImage(supabase, "doctor-photos", data.photo_path);
+  }
+
   revalidateContent();
   return { success: true, message: "Hekim silindi." };
+}
+
+export async function removeDoctorPhotoAction(formData: FormData) {
+  await requireAdmin();
+  const supabase = getSupabaseAdmin();
+  const id = getString(formData, "id");
+  if (!supabase || !id) return { error: "Kayıt bulunamadı." };
+
+  const { data, error: readError } = await supabase
+    .from("doctors")
+    .select("photo_url, photo_path")
+    .eq("id", id)
+    .maybeSingle();
+
+  if (readError || !data) {
+    const missingColumn = readError?.message.toLowerCase().includes("photo_");
+    return {
+      error: missingColumn
+        ? "Hekim görseli kaydedilemedi. schema.sql içindeki doctors fotoğraf alanlarını çalıştırın."
+        : "Hekim bulunamadı."
+    };
+  }
+
+  if (!data.photo_url && !data.photo_path) {
+    return { error: "Kaldırılacak görsel yok." };
+  }
+
+  const { error } = await supabase
+    .from("doctors")
+    .update({ photo_url: null, photo_path: null })
+    .eq("id", id);
+
+  if (error) return { error: "Görsel kaldırılamadı." };
+
+  if (data.photo_path) {
+    await removePublicImage(supabase, "doctor-photos", data.photo_path);
+  }
+
+  revalidateContent();
+  return { success: true, message: "Görsel kaldırıldı." };
 }
 
 export async function saveAnnouncementAction(formData: FormData) {
@@ -231,16 +338,16 @@ export async function deleteDoctorLeaveAction(formData: FormData) {
   return { success: true, message: "Hekim izni silindi." };
 }
 
-const NEWS_COVER_TYPES: Record<string, string> = {
+const PUBLIC_IMAGE_TYPES: Record<string, string> = {
   "image/jpeg": "jpg",
   "image/png": "png",
   "image/webp": "webp"
 };
 
-const NEWS_COVER_LIMIT = 2 * 1024 * 1024;
+const PUBLIC_IMAGE_LIMIT = 2 * 1024 * 1024;
 
-function getCoverFile(formData: FormData) {
-  const value = formData.get("cover");
+function getImageFile(formData: FormData, field: string) {
+  const value = formData.get(field);
   if (!(value instanceof File) || value.size <= 0) {
     return null;
   }
@@ -248,7 +355,7 @@ function getCoverFile(formData: FormData) {
   return value;
 }
 
-function isAllowedCover(buffer: Buffer, type: string) {
+function isAllowedImage(buffer: Buffer, type: string) {
   if (buffer.length < 12) {
     return false;
   }
@@ -271,51 +378,54 @@ function isAllowedCover(buffer: Buffer, type: string) {
   return false;
 }
 
-async function uploadNewsCover(
+async function uploadPublicImage(
   supabase: NonNullable<ReturnType<typeof getSupabaseAdmin>>,
-  file: File
+  bucket: string,
+  file: File,
+  label: string
 ) {
-  if (file.size > NEWS_COVER_LIMIT) {
-    return { error: "Kapak görseli 2 MB'dan küçük olmalıdır." };
+  if (file.size > PUBLIC_IMAGE_LIMIT) {
+    return { error: `${label} 2 MB'dan küçük olmalıdır.` };
   }
 
-  const extension = NEWS_COVER_TYPES[file.type];
+  const extension = PUBLIC_IMAGE_TYPES[file.type];
   if (!extension) {
-    return { error: "Kapak görseli JPEG, PNG veya WebP olmalıdır." };
+    return { error: `${label} JPEG, PNG veya WebP olmalıdır.` };
   }
 
   const buffer = Buffer.from(await file.arrayBuffer());
-  if (!isAllowedCover(buffer, file.type)) {
-    return { error: "Kapak görseli JPEG, PNG veya WebP olmalıdır." };
+  if (!isAllowedImage(buffer, file.type)) {
+    return { error: `${label} JPEG, PNG veya WebP olmalıdır.` };
   }
 
   const path = `${crypto.randomUUID()}.${extension}`;
-  const { error } = await supabase.storage.from("news-covers").upload(path, buffer, {
+  const { error } = await supabase.storage.from(bucket).upload(path, buffer, {
     contentType: file.type,
     upsert: false
   });
 
   if (error) {
-    console.error("News cover upload failed", error);
+    console.error("Image upload failed", error);
     const missingBucket = error.message.toLowerCase().includes("bucket");
     return {
       error: missingBucket
-        ? "news-covers kovası bulunamadı. schema.sql içindeki depolama komutunu çalıştırın."
-        : "Kapak görseli yüklenemedi."
+        ? `${bucket} kovası bulunamadı. schema.sql içindeki depolama komutunu çalıştırın.`
+        : `${label} yüklenemedi.`
     };
   }
 
-  const { data } = supabase.storage.from("news-covers").getPublicUrl(path);
+  const { data } = supabase.storage.from(bucket).getPublicUrl(path);
   return { path, url: data.publicUrl };
 }
 
-async function removeNewsCover(
+async function removePublicImage(
   supabase: NonNullable<ReturnType<typeof getSupabaseAdmin>>,
+  bucket: string,
   path: string
 ) {
-  const { error } = await supabase.storage.from("news-covers").remove([path]);
+  const { error } = await supabase.storage.from(bucket).remove([path]);
   if (error) {
-    console.error("News cover delete failed", error);
+    console.error("Image delete failed", error);
   }
 }
 
@@ -336,7 +446,7 @@ export async function saveNewsAction(formData: FormData) {
   if (!parsed.success) return { error: "Form alanlarını kontrol ediniz." };
 
   const { id, ...payload } = parsed.data;
-  const cover = getCoverFile(formData);
+  const cover = getImageFile(formData, "cover");
 
   let existing: {
     slug: string;
@@ -364,7 +474,7 @@ export async function saveNewsAction(formData: FormData) {
   let uploadedPath: string | null = null;
 
   if (cover) {
-    const uploaded = await uploadNewsCover(supabase, cover);
+    const uploaded = await uploadPublicImage(supabase, "news-covers", cover, "Kapak görseli");
     if ("error" in uploaded) return uploaded;
     uploadedPath = uploaded.path;
     coverImageUrl = uploaded.url;
@@ -373,7 +483,7 @@ export async function saveNewsAction(formData: FormData) {
 
   const slug = existing?.slug || slugify(payload.title);
   if (!slug) {
-    if (uploadedPath) await removeNewsCover(supabase, uploadedPath);
+    if (uploadedPath) await removePublicImage(supabase, "news-covers", uploadedPath);
     return { error: "Başlık geçerli bir adres üretmiyor." };
   }
 
@@ -389,7 +499,7 @@ export async function saveNewsAction(formData: FormData) {
     : await supabase.from("news").insert(dataToSave);
 
   if (response.error) {
-    if (uploadedPath) await removeNewsCover(supabase, uploadedPath);
+    if (uploadedPath) await removePublicImage(supabase, "news-covers", uploadedPath);
     console.error("News save failed", response.error);
     if (response.error.code === "23505") {
       return { error: "Bu başlığa ait bir haber zaten var." };
@@ -404,7 +514,7 @@ export async function saveNewsAction(formData: FormData) {
     existing?.cover_image_path &&
     existing.cover_image_path !== uploadedPath
   ) {
-    await removeNewsCover(supabase, existing.cover_image_path);
+    await removePublicImage(supabase, "news-covers", existing.cover_image_path);
   }
 
   revalidateContent();
@@ -430,7 +540,7 @@ export async function deleteNewsAction(formData: FormData) {
   if (error) return { error: "Silme işlemi başarısız." };
 
   if (data?.cover_image_path) {
-    await removeNewsCover(supabase, data.cover_image_path);
+    await removePublicImage(supabase, "news-covers", data.cover_image_path);
   }
 
   revalidateContent();

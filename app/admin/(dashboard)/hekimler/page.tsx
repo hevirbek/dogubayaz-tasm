@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
@@ -5,7 +7,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Input } from "@/components/ui/input";
 import { requireAdmin } from "@/lib/admin/auth";
 import { getAdminDoctors, getAdminDoctorLeaves } from "@/lib/admin/data";
-import { saveDoctorAction, deleteDoctorAction, saveDoctorLeaveAction, deleteDoctorLeaveAction } from "@/app/admin/actions";
+import { saveDoctorAction, deleteDoctorAction, removeDoctorPhotoAction, saveDoctorLeaveAction, deleteDoctorLeaveAction } from "@/app/admin/actions";
 import { Field, EmptyState } from "@/components/admin/Shared";
 import { ActionForm } from "@/components/admin/ActionForm";
 import type { Doctor } from "@/lib/data/doctors";
@@ -65,6 +67,27 @@ function DoctorForm({ doctor }: { doctor?: Doctor }) {
         <CardTitle>{isEditing ? doctor?.full_name : "Yeni hekim/personel ekle"}</CardTitle>
       </CardHeader>
       <CardContent className="grid gap-4">
+        {doctor?.photo_url ? (
+          <div className="flex items-center gap-4">
+            <Image
+              src={doctor.photo_url}
+              alt=""
+              width={96}
+              height={96}
+              className="h-24 w-24 rounded-md object-cover"
+            />
+            <ActionForm action={removeDoctorPhotoAction}>
+              <input type="hidden" name="id" value={doctor.id} />
+              <Button
+                type="submit"
+                variant="outline"
+                className="border-red-200 text-red-600 hover:bg-red-50 hover:text-red-700"
+              >
+                Görseli kaldır
+              </Button>
+            </ActionForm>
+          </div>
+        ) : null}
         <ActionForm action={saveDoctorAction} resetOnSuccess={!isEditing} className="grid gap-4">
           <input type="hidden" name="id" value={doctor?.id || ""} />
           <div className="grid gap-4 md:grid-cols-2">
@@ -84,6 +107,19 @@ function DoctorForm({ doctor }: { doctor?: Doctor }) {
               defaultValue={doctor?.note || ""}
               maxLength={400}
             />
+          </div>
+          <div className="grid gap-2">
+            <Label htmlFor={`doctor-photo-${doctor?.id || "new"}`}>Fotoğraf</Label>
+            <Input
+              id={`doctor-photo-${doctor?.id || "new"}`}
+              name="photo"
+              type="file"
+              accept="image/jpeg,image/png,image/webp"
+            />
+            <p className="text-xs text-muted-foreground">
+              JPEG, PNG veya WebP. En fazla 2 MB. İsteğe bağlı.
+              {isEditing ? " Yeni dosya seçip güncellerseniz görsel değişir." : ""}
+            </p>
           </div>
           <label className="flex items-center gap-2 text-sm font-medium">
             <input

@@ -7,6 +7,8 @@ create table if not exists public.doctors (
   duty_type text,
   nurse_name text,
   note text,
+  photo_url text,
+  photo_path text,
   sort_order integer not null default 0,
   is_active boolean not null default true,
   created_at timestamptz not null default now()
@@ -14,6 +16,9 @@ create table if not exists public.doctors (
 
 create index if not exists doctors_sort_order_idx
   on public.doctors (sort_order);
+
+alter table public.doctors add column if not exists photo_url text;
+alter table public.doctors add column if not exists photo_path text;
 
 create table if not exists public.announcements (
   id uuid primary key default gen_random_uuid(),
@@ -119,5 +124,35 @@ begin
       for select
       to public
       using (bucket_id = 'news-covers');
+  end if;
+end $$;
+
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'doctor-photos',
+  'doctor-photos',
+  true,
+  2097152,
+  array['image/jpeg', 'image/png', 'image/webp']
+)
+on conflict (id) do update
+set public = excluded.public,
+    file_size_limit = excluded.file_size_limit,
+    allowed_mime_types = excluded.allowed_mime_types;
+
+do $$
+begin
+  if not exists (
+    select 1
+    from pg_policies
+    where schemaname = 'storage'
+      and tablename = 'objects'
+      and policyname = 'Public read for doctor photos'
+  ) then
+    create policy "Public read for doctor photos"
+      on storage.objects
+      for select
+      to public
+      using (bucket_id = 'doctor-photos');
   end if;
 end $$;

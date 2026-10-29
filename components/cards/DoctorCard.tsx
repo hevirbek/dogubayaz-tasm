@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { DoorOpen, Info, Stethoscope, CalendarX2 } from "lucide-react";
 
 import {
@@ -15,9 +16,20 @@ export function DoctorCard({ doctor, leave }: { doctor: Doctor; leave?: any }) {
       <div className="h-1 bg-primary" aria-hidden />
       <CardHeader className="p-4">
         <div className="mb-3 flex items-start justify-between gap-3">
-          <div className="flex h-9 w-9 items-center justify-center rounded-md border border-primary/15 bg-primary/10 text-primary">
-            <Stethoscope aria-hidden className="h-4 w-4" />
-          </div>
+          {doctor.photo_url ? (
+            <Image
+              src={doctor.photo_url}
+              alt={`${doctor.title} ${doctor.full_name}`}
+              width={96}
+              height={96}
+              sizes="96px"
+              className="h-24 w-24 shrink-0 rounded-md object-cover"
+            />
+          ) : (
+            <div className="flex h-9 w-9 items-center justify-center rounded-md border border-primary/15 bg-primary/10 text-primary">
+              <Stethoscope aria-hidden className="h-4 w-4" />
+            </div>
+          )}
           <span className="rounded-full border border-slate-200 bg-slate-50 px-2.5 py-1 text-[11px] font-medium text-slate-600">
             {doctor.duty_type || "Aile Sağlığı Ekibi"}
           </span>
