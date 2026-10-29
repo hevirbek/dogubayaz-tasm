@@ -1,45 +1,29 @@
-import Link from "next/link";
-
 import { DoctorCard } from "@/components/cards/DoctorCard";
-import { SectionHeading } from "@/components/sections/SectionHeading";
-import { Button } from "@/components/ui/button";
 import type { Doctor } from "@/lib/data/doctors";
 
 export function DoctorsPreview({
   doctors,
-  leaves = [],
-  showAll = false
+  leaves = []
 }: {
   doctors: Doctor[];
-  leaves?: any[];
-  showAll?: boolean;
+  leaves?: { doctor_id: string; start_date: string; end_date: string; reason?: string | null }[];
 }) {
-  const visibleDoctors = showAll ? doctors : doctors.slice(0, 3);
-
   return (
-    <section className="section-padding bg-slate-50">
+    <section className="section-padding">
       <div className="container">
-        <SectionHeading
-          eyebrow="Hekimler"
-          title="Merkez ekibimiz"
-          description="Aile hekimleri ve aile sağlığı çalışanları, koruyucu sağlık hizmetlerinde düzenli ve erişilebilir destek sunar."
-          action={
-            showAll ? null : (
-              <Button asChild variant="outline">
-                <Link href="/hekimler">Hekimleri Gör</Link>
-              </Button>
-            )
-          }
-        />
-        {visibleDoctors.length > 0 ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {visibleDoctors.map((doctor) => {
-              const activeLeave = leaves?.find((l) => l.doctor_id === doctor.id);
+        <h1 className="max-w-3xl text-lg font-semibold leading-8 text-foreground sm:text-xl">
+          Aile Sağlığı Merkezimizde 11 Aile Hekimliği Birimi (AHB) bulunmaktadır.
+          Her birimde bir hekim ve bir aile sağlığı çalışanı hemşire görev yapmaktadır.
+        </h1>
+        {doctors.length > 0 ? (
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {doctors.map((doctor) => {
+              const activeLeave = leaves?.find((leave) => leave.doctor_id === doctor.id);
               return <DoctorCard key={doctor.id} doctor={doctor} leave={activeLeave} />;
             })}
           </div>
         ) : (
-          <p className="rounded-lg border border-dashed border-border p-6 text-muted-foreground">
+          <p className="mt-8 rounded-lg border border-dashed border-border p-6 text-muted-foreground">
             Şu anda görüntülenecek aktif hekim bilgisi bulunmuyor.
           </p>
         )}

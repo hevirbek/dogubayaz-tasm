@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { LucideIcon } from "lucide-react";
 
@@ -13,18 +14,32 @@ export function ServiceCard({
   title,
   slug,
   description,
-  icon: Icon
+  icon: Icon,
+  image
 }: {
   title: string;
   slug: string;
   description: string;
   icon: LucideIcon;
+  image: {
+    src: string;
+    alt: string;
+  };
 }) {
   return (
-    <Card className="h-full transition hover:-translate-y-0.5 hover:shadow-soft">
+    <Card className="h-full overflow-hidden transition hover:-translate-y-0.5 hover:shadow-soft">
+      <div className="relative aspect-[16/10]">
+        <Image
+          src={image.src}
+          alt={image.alt}
+          fill
+          sizes="(min-width: 1024px) 360px, (min-width: 640px) 50vw, 100vw"
+          className="object-cover"
+        />
+      </div>
       <CardHeader>
-        <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-md bg-accent text-accent-foreground">
-          <Icon aria-hidden className="h-6 w-6" />
+        <span className="mb-3 flex h-10 w-10 items-center justify-center rounded-md bg-accent text-accent-foreground">
+          <Icon aria-hidden className="h-5 w-5" />
         </span>
         <CardTitle>
           <Link

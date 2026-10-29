@@ -18,31 +18,5 @@ export default async function DoctorsPage() {
     getActiveDoctorLeaves()
   ]);
 
-  return (
-    <>
-      <PageHeader
-        title="Hekimler"
-        description="Merkezimizde görev yapan aile hekimleri ve aile sağlığı çalışanları."
-      />
-      <DoctorsPreview doctors={doctors} leaves={leaves} showAll />
-    </>
-  );
-}
-
-function PageHeader({ title, description }: { title: string; description: string }) {
-  return (
-    <section className="bg-cyan-50 py-12">
-      <div className="container">
-        <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-          {siteConfig.asmName}
-        </p>
-        <h1 className="mt-2 text-4xl font-bold tracking-normal text-slate-950">
-          {title}
-        </h1>
-        <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-700">
-          {description}
-        </p>
-      </div>
-    </section>
-  );
+  return <DoctorsPreview doctors={doctors} leaves={leaves} />;
 }

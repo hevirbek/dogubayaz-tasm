@@ -4,8 +4,11 @@ import {
   FileText,
   HeartPulse,
   type LucideIcon,
+  Ribbon,
   ShieldCheck,
-  Stethoscope
+  Stethoscope,
+  Syringe,
+  TestTube
 } from "lucide-react";
 
 export type Service = {
@@ -13,6 +16,10 @@ export type Service = {
   slug: string;
   description: string;
   icon: LucideIcon;
+  image: {
+    src: string;
+    alt: string;
+  };
   detailIntro: string;
   detailSections: {
     title: string;
@@ -27,6 +34,10 @@ export const services: Service[] = [
     slug: "asi-takibi",
     description: "Bebek, çocuk ve yetişkinler için Sağlık Bakanlığı ulusal aşı takvimi kapsamında ücretsiz, güvenli ve düzenli aşı takip hizmeti sunulmaktadır.",
     icon: ShieldCheck,
+    image: {
+      src: "/images/hakkimizda/follow-up.jpg",
+      alt: "Masasında kayıt tutan bir hekim"
+    },
     detailIntro: "Aşı takibi, toplum sağlığını korumak ve önlenebilir hastalıklara karşı direnç geliştirmek için sunduğumuz en önemli koruyucu sağlık hizmetlerinden biridir. Aile sağlığı merkezimizde tüm aşı uygulamaları soğuk zincir kurallarına titizlikle uyularak, güvenli ve hijyenik bir ortamda gerçekleştirilir.",
     detailSections: [
       {
@@ -47,8 +58,12 @@ export const services: Service[] = [
   {
     title: "Gebe ve Lohusa İzlemi",
     slug: "gebe-izlem",
-    description: "Anne ve bebek sağlığını korumak için gebelik başlangıcından lohusalık döneminin sonuna kadar düzenli tıbbi takip ve danışmanlık hizmeti.",
+    description: "Anne ve bebek sağlığını korumak için gebelik başlangıcından lohusalık döneminin sonuna kadar düzenli tıbbi takip ve danışmanlık hizmeti sunulmaktadır.",
     icon: HeartPulse,
+    image: {
+      src: "/images/hakkimizda/intro.jpg",
+      alt: "Hekim odası ile muayene masasının göründüğü aydınlık bir klinik iç mekanı"
+    },
     detailIntro: "Sağlıklı bir nesil, sağlıklı bir anne ile başlar. Gebelik ve lohusalık dönemi boyunca hem annenin hem de bebeğin sağlığını yakından takip etmek, olası riskleri önceden belirlemek ve sağlıklı bir doğum süreci geçirmenizi sağlamak temel amacımızdır.",
     detailSections: [
       {
@@ -69,8 +84,12 @@ export const services: Service[] = [
   {
     title: "Bebek ve Çocuk İzlemi",
     slug: "bebek-cocuk-izlem",
-    description: "Doğumdan itibaren çocukluk dönemi boyunca büyüme, fiziksel ve zihinsel gelişim takiplerinin uzman sağlık personellerimizce yapılması.",
+    description: "Doğumdan itibaren çocukluk dönemi boyunca büyüme, fiziksel ve zihinsel gelişim takipleri düzenli yapılmaktadır.",
     icon: Baby,
+    image: {
+      src: "/images/hakkimizda/waiting.jpg",
+      alt: "Pencere kenarında sandalyelerin sıralandığı bir bekleme alanı"
+    },
     detailIntro: "Çocuklarımızın sağlıklı büyümesi ve gelişmesi için düzenli sağlık kontrolleri vazgeçilmezdir. Bebek ve çocuk izlemleri ile olası gelişim geriliklerini veya sağlık sorunlarını erken dönemde tespit ederek gerekli müdahalelerin zamanında yapılmasını sağlıyoruz.",
     detailSections: [
       {
@@ -91,8 +110,12 @@ export const services: Service[] = [
   {
     title: "Kronik Hastalık Takibi",
     slug: "kronik-hastalik-takibi",
-    description: "Hipertansiyon, diyabet, astım, KOAH, obezite ve kalp hastalıkları gibi kronik rahatsızlıkların sürekli, düzenli tahlil ve takibi.",
+    description: "Hipertansiyon, diyabet, obezite, inme, kronik böbrek yetmezliği, astım, KOAH ve kalp hastalıkları gibi kronik rahatsızlıkların taraması/takibi ve yaşlı hastalarımızın genel durum değerlendirmesi düzenli olarak yapılmaktadır.",
     icon: ClipboardCheck,
+    image: {
+      src: "/images/hakkimizda/team.jpg",
+      alt: "İki sağlık çalışanı bir röntgen görüntüsünü birlikte inceliyor"
+    },
     detailIntro: "Kronik hastalıklar, düzenli doktor kontrolü ve yaşam tarzı değişiklikleri ile başarıyla yönetilebilir. Hastalarımızın yaşam kalitesini artırmak, hastalık komplikasyonlarını önlemek ve ilaç tedavilerini düzenlemek amacıyla kapsamlı bir takip programı yürütüyoruz.",
     detailSections: [
       {
@@ -113,8 +136,12 @@ export const services: Service[] = [
   {
     title: "Muayene ve Genel Sağlık Danışmanlığı",
     slug: "muayene-danismanlik",
-    description: "Akut hastalıkların teşhis ve tedavisi, genel sağlık şikayetlerinin değerlendirilmesi ve bireyselleştirilmiş koruyucu sağlık danışmanlığı.",
+    description: "Aile Sağlığı Merkezimizde hastalıkların teşhis ve tedavisi yapılmakta, genel sağlık şikayetleriniz değerlendirilmekte ve bireyselleştirilmiş koruyucu sağlık danışmanlığı hizmeti sunulmaktadır.",
     icon: Stethoscope,
+    image: {
+      src: "/images/hakkimizda/exam.jpg",
+      alt: "Lavabo, dolap ve malzeme rafının bulunduğu klinik odası"
+    },
     detailIntro: "Sağlığınızla ilgili her türlü endişenizde ilk başvuracağınız nokta aile sağlığı merkezimizdir. Deneyimli hekim kadromuz ile her yaş grubundan hastaya kapsamlı, güvenilir ve hasta odaklı birinci basamak sağlık hizmeti sunuyoruz.",
     detailSections: [
       {
@@ -135,8 +162,12 @@ export const services: Service[] = [
   {
     title: "Sağlık Raporu İşlemleri",
     slug: "rapor-islemleri",
-    description: "Sürücü belgesi, işe giriş, spor lisansı, evlilik raporu ve yivsiz av tüfeği gibi resmi kurumlarca talep edilen sağlık durum bildirim raporları.",
+    description: "Sürücü sağlık raporu, evlilik raporu, durum bildirir tek hekim raporu, yivsiz av tüfeği gibi resmi kurumlarca talep edilen sağlık raporları düzenlenmektedir.",
     icon: FileText,
+    image: {
+      src: "/images/hakkimizda/reception.jpg",
+      alt: "Boş bir danışma bankosu"
+    },
     detailIntro: "Çeşitli resmi işlemleriniz için gereken sağlık raporları, ilgili mevzuatlar çerçevesinde gerekli fiziksel muayene ve testler sonucunda aile hekimliğimizce düzenlenmektedir. Rapor süreçlerinde hasta güvenliği ve mevzuata uygunluk esastır.",
     detailSections: [
       {
@@ -153,6 +184,80 @@ export const services: Service[] = [
       }
     ],
     contactNote: "Almak istediğiniz rapor türüne göre hangi belgelere veya tahlillere ihtiyacınız olduğunu öğrenmek için başvuru öncesi bizimle iletişime geçmenizi rica ederiz."
+  },
+  {
+    title: "Kanser Taramaları",
+    slug: "kanser-taramalari",
+    description: "Meme, rahim ağzı ve kolorektal kanser taramaları ulusal tarama programı kapsamında planlanmakta ve gerekli yönlendirme yapılmaktadır.",
+    icon: Ribbon,
+    image: {
+      src: "/images/hakkimizda/corridor.jpg",
+      alt: "Kapılar ve oturma sıraları bulunan aydınlık bir sağlık koridoru"
+    },
+    detailIntro: "Ulusal kanser tarama programı kapsamında meme, rahim ağzı ve kolorektal kanser taramaları aile sağlığı merkezimizde planlanır. Uygun yaş ve risk grubundaki kişiler bilgilendirilir, gerektiğinde ilgili merkeze yönlendirilir.",
+    detailSections: [
+      {
+        title: "Tarama türleri",
+        content: "Meme, rahim ağzı ve kolorektal kanser taramaları, Sağlık Bakanlığı programında belirtilen yaş ve risk gruplarına göre planlanır. Hangi taramanın size uygun olduğu aile hekiminiz tarafından değerlendirilir."
+      },
+      {
+        title: "Başvuru",
+        content: "Tarama için başvurmadan önce MHRS veya 182 üzerinden randevu alınız. Kimlik belgenizi yanınızda bulundurunuz."
+      }
+    ],
+    contactNote: "Size uygun kanser taraması ve başvuru zamanı için merkezimizle iletişime geçebilirsiniz."
+  },
+  {
+    title: "Laboratuvar Tetkikleri",
+    slug: "laboratuvar-tetkikleri",
+    description: "Muayene ve izlem süreçlerinde gereken kan ve idrar tetkikleri merkezimizde alınmakta, sonuçlar hekiminiz tarafından değerlendirilmektedir.",
+    icon: TestTube,
+    image: {
+      src: "/images/hakkimizda/exam.jpg",
+      alt: "Lavabo, dolap ve malzeme rafının bulunduğu klinik odası"
+    },
+    detailIntro: "Muayene, izlem ve rapor süreçlerinde gereken kan ve idrar örnekleri merkezimizde alınır. Sonuçlar aile hekiminiz tarafından değerlendirilir.",
+    detailSections: [
+      {
+        title: "Hangi tetkikler",
+        content: "İzlem, muayene ve rapor işlemleri sırasında hekimin gerekli gördüğü kan ve idrar tetkikleri için örnek alımı merkezimizde yapılır."
+      },
+      {
+        title: "Sonuçlar",
+        content: "Tetkik sonuçları aile hekiminiz tarafından yorumlanır. Sonuçlarınıza e-Nabız üzerinden de ulaşabilirsiniz."
+      },
+      {
+        title: "Başvurudan önce",
+        content: "Tetkik için randevu alınız ve kimlik belgenizi yanınızda bulundurunuz. Açlık gerektiren bir tetkik olup olmadığını başvuru öncesinde merkezimizden öğreniniz."
+      }
+    ],
+    contactNote: "Tetkik randevusu ve hazırlık bilgisi için merkezimizi arayabilirsiniz."
+  },
+  {
+    title: "Enjeksiyon ve Pansuman Hizmetleri",
+    slug: "enjeksiyon-pansuman",
+    description: "Hekimin uygun gördüğü enjeksiyon uygulamaları ile yara pansumanı, hijyen kurallarına uygun biçimde sunulmaktadır.",
+    icon: Syringe,
+    image: {
+      src: "/images/hakkimizda/exam.jpg",
+      alt: "Lavabo, dolap ve malzeme rafının bulunduğu klinik odası"
+    },
+    detailIntro: "Hekimin uygun gördüğü enjeksiyon uygulamaları ve yara pansumanı, hijyen kurallarına uygun biçimde aile sağlığı merkezimizde yapılır.",
+    detailSections: [
+      {
+        title: "Enjeksiyon",
+        content: "Hekimin uygun gördüğü enjeksiyon uygulamaları, kimlik doğrulaması ve gerekli değerlendirme sonrasında yapılır."
+      },
+      {
+        title: "Pansuman",
+        content: "Yara pansumanı hijyen kurallarına uygun biçimde uygulanır. Durumunuz hekim tarafından değerlendirilir."
+      },
+      {
+        title: "Başvurudan önce",
+        content: "İşlem için randevu alınız, randevu saatinize uyunuz ve geçerli kimlik belgenizi yanınızda bulundurunuz."
+      }
+    ],
+    contactNote: "Enjeksiyon ve pansuman için uygun zaman bilgisi almak üzere merkezimizle iletişime geçebilirsiniz."
   }
 ];
 

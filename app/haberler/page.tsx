@@ -17,21 +17,11 @@ export default async function NewsPage() {
 
   return (
     <>
-      <section className="bg-cyan-50 py-12">
-        <div className="container">
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            Haberler
-          </p>
-          <h1 className="mt-2 text-4xl font-bold tracking-normal text-slate-950">
-            Güncel haberler
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-700">
-            Merkezimizin etkinlik ve genel bilgilendirme haberleri.
-          </p>
-        </div>
-      </section>
       <section className="section-padding">
         <div className="container">
+          <h1 className="mb-8 max-w-3xl text-lg font-semibold leading-8 text-foreground sm:text-xl">
+            Etkinlik ve bilgilendirme haberlerini buradan takip edebilirsiniz.
+          </h1>
           {news.length > 0 ? (
             <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
               {news.map((item) => (

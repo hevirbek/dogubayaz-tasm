@@ -17,20 +17,6 @@ export default async function AnnouncementsPage() {
 
   return (
     <>
-      <section className="bg-cyan-50 py-12">
-        <div className="container">
-          <p className="text-sm font-semibold uppercase tracking-wide text-primary">
-            Duyurular
-          </p>
-          <h1 className="mt-2 text-4xl font-bold tracking-normal text-slate-950">
-            Güncel duyurular
-          </h1>
-          <p className="mt-4 max-w-2xl text-lg leading-8 text-slate-700">
-            Merkezimizle ilgili genel bilgilendirme ve çalışma düzeni
-            duyuruları.
-          </p>
-        </div>
-      </section>
       <AnnouncementsPreview announcements={announcements} showAll />
     </>
   );

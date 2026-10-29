@@ -1,4 +1,4 @@
-import { Clock3, DoorOpen, Info, Stethoscope, CalendarX2 } from "lucide-react";
+import { DoorOpen, Info, Stethoscope, CalendarX2 } from "lucide-react";
 
 import {
   Card,
@@ -12,10 +12,10 @@ import type { Doctor } from "@/lib/data/doctors";
 export function DoctorCard({ doctor, leave }: { doctor: Doctor; leave?: any }) {
   return (
     <Card className="h-full overflow-hidden">
-      <CardHeader>
-        <div className="mb-3 flex items-start justify-between gap-4">
-          <div className="flex h-12 w-12 items-center justify-center rounded-md bg-primary/10 text-primary">
-            <Stethoscope aria-hidden className="h-6 w-6" />
+      <CardHeader className="p-4">
+        <div className="mb-3 flex items-start justify-between gap-3">
+          <div className="flex h-9 w-9 items-center justify-center rounded-md bg-primary/10 text-primary">
+            <Stethoscope aria-hidden className="h-4 w-4" />
           </div>
           <span className="rounded-md bg-accent px-3 py-1 text-xs font-semibold text-accent-foreground">
             {doctor.duty_type || "Aile Sağlığı Ekibi"}
@@ -30,23 +30,14 @@ export function DoctorCard({ doctor, leave }: { doctor: Doctor; leave?: any }) {
           )}
         </CardDescription>
       </CardHeader>
-      <CardContent className="grid gap-4 text-sm">
+      <CardContent className="grid gap-3 p-4 pt-0 text-sm">
         <dl className="grid gap-3">
           <div className="flex gap-3 rounded-md bg-slate-50 p-3">
             <DoorOpen aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
             <div>
-              <dt className="font-medium text-foreground">Çalışma odası</dt>
+              <dt className="font-medium text-foreground">Çalışma Odası</dt>
               <dd className="mt-0.5 text-muted-foreground">
                 {doctor.room || "Bilgi eklenecek"}
-              </dd>
-            </div>
-          </div>
-          <div className="flex gap-3 rounded-md bg-slate-50 p-3">
-            <Clock3 aria-hidden className="mt-0.5 h-4 w-4 shrink-0 text-primary" />
-            <div>
-              <dt className="font-medium text-foreground">Poliklinik saatleri</dt>
-              <dd className="mt-0.5 text-muted-foreground">
-                {doctor.working_hours || "Bilgi eklenecek"}
               </dd>
             </div>
           </div>

@@ -1,8 +1,4 @@
-import Link from "next/link";
-
 import { AnnouncementCard } from "@/components/cards/AnnouncementCard";
-import { SectionHeading } from "@/components/sections/SectionHeading";
-import { Button } from "@/components/ui/button";
 import type { Announcement } from "@/lib/data/announcements";
 
 export function AnnouncementsPreview({
@@ -19,18 +15,10 @@ export function AnnouncementsPreview({
   return (
     <section className="section-padding">
       <div className="container">
-        <SectionHeading
-          eyebrow="Duyurular"
-          title="Güncel bilgilendirmeler"
-          description="Çalışma düzeni, izlem süreçleri ve genel iletişim konularındaki kısa duyuruları buradan takip edebilirsiniz."
-          action={
-            showAll ? null : (
-              <Button asChild variant="outline">
-                <Link href="/duyurular">Tüm Duyurular</Link>
-              </Button>
-            )
-          }
-        />
+        <h1 className="mb-8 max-w-3xl text-lg font-semibold leading-8 text-foreground sm:text-xl">
+          Çalışma düzeni, izlem süreçleri ve genel iletişim konularındaki kısa
+          duyuruları buradan takip edebilirsiniz.
+        </h1>
         {visibleAnnouncements.length > 0 ? (
           <div className="grid gap-5 md:grid-cols-3">
             {visibleAnnouncements.map((announcement) => (

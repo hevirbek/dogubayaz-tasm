@@ -14,11 +14,7 @@ export function BeforeVisit() {
   return (
     <section className="section-padding bg-slate-50">
       <div className="container">
-        <SectionHeading
-          eyebrow="Merkeze Gelmeden Önce"
-          title="Başvurunuzu kolaylaştıracak kısa bilgiler"
-          description="Merkezimize gelmeden önce dikkat edebileceğiniz birkaç nokta işlemlerin daha düzenli ilerlemesine yardımcı olur."
-        />
+        <SectionHeading eyebrow="Muayeneye Gelmeden Önce" />
         <div className="divide-y divide-border rounded-lg border border-border bg-background shadow-card">
           {filteredItems.map((item) => (
             <div

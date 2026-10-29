@@ -7,26 +7,21 @@ import { SectionHeading } from "@/components/sections/SectionHeading";
 import { Button } from "@/components/ui/button";
 import { services } from "@/lib/data/services";
 
-export function ServicesPreview({ showAll = false }: { showAll?: boolean }) {
-  const visibleServices = showAll ? services : services.slice(0, 6);
-
+export function ServicesPreview() {
   return (
     <section className="section-padding">
       <div className="container">
         <SectionHeading
           eyebrow="Hizmetler"
-          title="Koruyucu ve Temel Sağlık Hizmetleri"
-          description="Aile hekimliği kapsamında sunulan hizmetler, bilgilendirme ve düzenli izlem süreçlerine destek olacak şekilde planlanır."
+          description="Aile Sağlığı Merkezlerinde (ASM) ve aile hekimliği birimlerinde, kişiye yönelik koruyucu sağlık hizmetleri, birinci basamak teşhis, tedavi ve rehberlik hizmetleri sunulmaktadır."
           action={
-            showAll ? null : (
-              <Button asChild variant="outline">
-                <Link href="/hizmetler">Tüm Hizmetler</Link>
-              </Button>
-            )
+            <Button asChild variant="outline">
+              <Link href="/hizmetler">Tüm Hizmetler</Link>
+            </Button>
           }
         />
         <div className="divide-y divide-border rounded-lg border border-border bg-background shadow-card">
-          {visibleServices.map((service) => (
+          {services.map((service) => (
             <details
               key={service.slug}
               className="group"

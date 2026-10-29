@@ -7,23 +7,31 @@ export function SectionHeading({
   action
 }: {
   eyebrow?: string;
-  title: string;
+  title?: string;
   description?: string;
   action?: ReactNode;
 }) {
   return (
     <div className="mb-8 flex flex-col gap-4 md:mb-10 md:flex-row md:items-end md:justify-between">
       <div className="max-w-2xl">
-        {eyebrow ? (
-          <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-primary">
+        {title ? (
+          <>
+            {eyebrow ? (
+              <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-primary">
+                {eyebrow}
+              </p>
+            ) : null}
+            <h2 className="text-2xl font-bold tracking-normal text-foreground sm:text-3xl">
+              {title}
+            </h2>
+          </>
+        ) : eyebrow ? (
+          <h2 className="text-sm font-semibold uppercase tracking-wide text-primary">
             {eyebrow}
-          </p>
+          </h2>
         ) : null}
-        <h2 className="text-2xl font-bold tracking-normal text-foreground sm:text-3xl">
-          {title}
-        </h2>
         {description ? (
-          <p className="mt-3 text-base leading-7 text-muted-foreground">
+          <p className={`${title || eyebrow ? "mt-3" : ""} text-base leading-7 text-muted-foreground`}>
             {description}
           </p>
         ) : null}

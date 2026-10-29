@@ -7,11 +7,7 @@ export function FAQ({ limit }: { limit?: number }) {
   return (
     <section className="section-padding bg-slate-50">
       <div className="container">
-        <SectionHeading
-          eyebrow="Sık Sorulanlar"
-          title="Kısa ve net yanıtlar"
-          description="Genel başvuru ve iletişim süreçleri hakkında sık sorulan sorular."
-        />
+        <SectionHeading eyebrow="Sık Sorulanlar" />
         <div className="grid gap-4 md:grid-cols-2">
           {items.map((item) => (
             <details

@@ -87,8 +87,7 @@ export function NewsSlider({ news }: { news: News[] }) {
       <div className="container">
         <SectionHeading
           eyebrow="Haberler"
-          title="Merkezimizden haberler"
-          description="Etkinlik ve bilgilendirme haberlerinin son beşini buradan takip edebilirsiniz."
+          description="Etkinlik ve bilgilendirme haberlerini buradan takip edebilirsiniz."
           action={
             <Button asChild variant="outline">
               <Link href="/haberler">Tüm Haberler</Link>

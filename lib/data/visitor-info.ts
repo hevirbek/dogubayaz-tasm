@@ -1,6 +1,7 @@
 import {
   BadgeCheck,
   Building2,
+  CalendarCheck,
   FileWarning,
   HeartPulse,
   IdCard,
@@ -9,16 +10,16 @@ import {
 
 export const beforeVisitItems = [
   {
-    title: "Kimlik belgenizi yanınızda bulundurun",
+    title: "Kimlik belgenizi yanınızda bulundurun.",
     description:
-      "Başvuru ve kayıt işlemlerinde kimlik doğrulaması gerekebilir.",
+      "Başvuru ve kayıt işlemlerinde kimlik doğrulaması mutlaka gerekmektedir.",
     icon: IdCard
   },
   {
-    title: "İzlem ve aşı için önce bilgi alın",
+    title: "Randevu alın",
     description:
-      "Bebek, çocuk, gebe izlem ve aşı süreçleri için uygun zaman bilgisini telefonla öğrenebilirsiniz.",
-    icon: PhoneCall
+      "Başvurunuz öncesinde mutlaka randevu alınız ve randevu saatinize uymaya özen gösteriniz.",
+    icon: CalendarCheck
   },
   {
     title: "Özel sağlık bilginizi formdan paylaşmayın",
