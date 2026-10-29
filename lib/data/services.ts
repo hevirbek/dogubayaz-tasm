@@ -139,8 +139,8 @@ export const services: Service[] = [
     description: "Aile Sağlığı Merkezimizde hastalıkların teşhis ve tedavisi yapılmakta, genel sağlık şikayetleriniz değerlendirilmekte ve bireyselleştirilmiş koruyucu sağlık danışmanlığı hizmeti sunulmaktadır.",
     icon: Stethoscope,
     image: {
-      src: "/images/hakkimizda/exam.jpg",
-      alt: "Lavabo, dolap ve malzeme rafının bulunduğu klinik odası"
+      src: "/images/hizmetler/muayene-danismanlik.jpg",
+      alt: "Hastasını dinleyen hekim ve muayene ile sağlık danışmanlığı bilgileri"
     },
     detailIntro: "Sağlığınızla ilgili her türlü endişenizde ilk başvuracağınız nokta aile sağlığı merkezimizdir. Deneyimli hekim kadromuz ile her yaş grubundan hastaya kapsamlı, güvenilir ve hasta odaklı birinci basamak sağlık hizmeti sunuyoruz.",
     detailSections: [
@@ -165,8 +165,8 @@ export const services: Service[] = [
     description: "Sürücü sağlık raporu, evlilik raporu, durum bildirir tek hekim raporu, yivsiz av tüfeği gibi resmi kurumlarca talep edilen sağlık raporları düzenlenmektedir.",
     icon: FileText,
     image: {
-      src: "/images/hakkimizda/reception.jpg",
-      alt: "Boş bir danışma bankosu"
+      src: "/images/hizmetler/rapor-islemleri.jpg",
+      alt: "Sağlık raporu veren hekim ve rapor türleri bilgileri"
     },
     detailIntro: "Çeşitli resmi işlemleriniz için gereken sağlık raporları, ilgili mevzuatlar çerçevesinde gerekli fiziksel muayene ve testler sonucunda aile hekimliğimizce düzenlenmektedir. Rapor süreçlerinde hasta güvenliği ve mevzuata uygunluk esastır.",
     detailSections: [
@@ -213,8 +213,8 @@ export const services: Service[] = [
     description: "Muayene ve izlem süreçlerinde gereken kan ve idrar tetkikleri merkezimizde alınmakta, sonuçlar hekiminiz tarafından değerlendirilmektedir.",
     icon: TestTube,
     image: {
-      src: "/images/hakkimizda/exam.jpg",
-      alt: "Lavabo, dolap ve malzeme rafının bulunduğu klinik odası"
+      src: "/images/hizmetler/laboratuvar-tetkikleri.jpg",
+      alt: "Kan tüpü gösteren sağlık çalışanı ve laboratuvar tetkikleri bilgileri"
     },
     detailIntro: "Muayene, izlem ve rapor süreçlerinde gereken kan ve idrar örnekleri merkezimizde alınır. Sonuçlar aile hekiminiz tarafından değerlendirilir.",
     detailSections: [
@@ -239,8 +239,8 @@ export const services: Service[] = [
     description: "Hekimin uygun gördüğü enjeksiyon uygulamaları ile yara pansumanı, hijyen kurallarına uygun biçimde sunulmaktadır.",
     icon: Syringe,
     image: {
-      src: "/images/hakkimizda/exam.jpg",
-      alt: "Lavabo, dolap ve malzeme rafının bulunduğu klinik odası"
+      src: "/images/hizmetler/enjeksiyon-pansuman.jpg",
+      alt: "Pansuman yapan sağlık çalışanı ve enjeksiyon ile pansuman bilgileri"
     },
     detailIntro: "Hekimin uygun gördüğü enjeksiyon uygulamaları ve yara pansumanı, hijyen kurallarına uygun biçimde aile sağlığı merkezimizde yapılır.",
     detailSections: [
